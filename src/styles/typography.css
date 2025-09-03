@@ -5,22 +5,22 @@
   }
 
   h1 {
-    @apply text-4xl font-bold md:text-5xl lg:text-6xl;
+    @apply text-3xl font-bold md:text-4xl lg:text-5xl;
     @apply bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent;
   }
 
   h2 {
-    @apply text-3xl font-semibold md:text-4xl;
+    @apply text-2xl font-semibold md:text-3xl;
     @apply bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent;
   }
 
   h3 {
-    @apply text-2xl font-semibold md:text-3xl;
+    @apply text-xl font-semibold md:text-2xl;
   }
 
   /* Body Text */
   body {
-    @apply font-sans antialiased;
+    @apply font-sans antialiased text-base md:text-lg;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
 
