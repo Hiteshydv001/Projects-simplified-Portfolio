@@ -68,7 +68,7 @@ If there are any errors, issues or suggestions, please feel free to [open a new 
 
 ## 📂 Project Structure
 
-\`\`\`
+```
 src/
 ├── app/                    # Next.js 13 app directory
 │   ├── about/             # About page
@@ -83,7 +83,7 @@ src/
 ├── lib/                   # Utility functions
 ├── styles/               # Global styles
 └── types/                # TypeScript types
-\`\`\`
+```
 
 ## 🎨 UI Components
 
@@ -120,9 +120,3 @@ Feel free to submit issues, fork the repository and create pull requests for any
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
-
-## 📬 Contact
-
-Hitesh - [@hiteshcodes](https://github.com/hiteshcodes)
-
-Project Link: [https://github.com/hiteshcodes/website](https://github.com/hiteshcodes/website)
