@@ -3,7 +3,10 @@
 
 import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from 'next-themes'
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+// You can use ThemeProviderProps directly, or define a type alias if needed
+type ThemeProviderCustomProps = ThemeProviderProps;
+
+export function ThemeProvider(props: ThemeProviderCustomProps) {
     return (
         <NextThemesProvider
             attribute="class"
@@ -12,7 +15,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
             disableTransitionOnChange
             {...props}
         >
-            {children}
+            {props.children}
         </NextThemesProvider>
     )
 } 

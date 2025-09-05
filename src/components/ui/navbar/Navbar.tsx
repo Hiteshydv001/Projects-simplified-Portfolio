@@ -37,6 +37,7 @@ export function Navbar() {
         { href: '/about', label: 'About' },
         { href: '/paper-implementations', label: 'Paper_Implementations' },
         { href: '/portfolio', label: 'Portfolio' },
+        { href: '/ai-playground', label: 'AI_Playground' },
         { href: '/leave_note_for_me', label: 'Leave_Note' }
     ]
 

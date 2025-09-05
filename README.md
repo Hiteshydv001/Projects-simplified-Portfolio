@@ -64,7 +64,7 @@ http://localhost:3000
 
 You may run into some issues when doing `npm install` because of the dependencies. You can always ask our AI friends to help you out. :)
 
-If there are any errors, issues or suggestions, please feel free to [open a new issue](https://github.com/sumitdotml/website/issues/new).
+If there are any errors, issues or suggestions, please feel free to [open a new issue](https://github.com/hiteshdotml/website/issues/new).
 
 ## 📂 Project Structure
 
@@ -115,7 +115,7 @@ The project uses various UI components from [shadcn/ui](https://ui.shadcn.com/do
 
 ## 🤝 Contributing
 
-Feel free to submit issues, fork the repository and create pull requests for any improvements. If there are any errors, issues or suggestions, please feel free to [open a new issue](https://github.com/sumitdotml/website/issues/new).
+Feel free to submit issues, fork the repository and create pull requests for any improvements. If there are any errors, issues or suggestions, please feel free to [open a new issue](https://github.com/hiteshdotml/website/issues/new).
 
 ## 📄 License
 
