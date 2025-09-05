@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { cn } from '@/lib/utils/utils'
 import TextHeading from '@/components/ui/text-heading/text-heading'
 import Text from '@/components/ui/text/text'
@@ -72,10 +73,12 @@ export function Projects() {
                                 <div>
                                     {project.images && project.images[0] && (
                                         <div className="relative w-full h-[200px] sm:h-[250px] overflow-hidden rounded-lg mb-4">
-                                            <img 
+                                            <Image 
                                                 src={project.images[0].src} 
                                                 alt={project.images[0].alt}
-                                                className="object-contain w-full h-full bg-accent/5"
+                                                fill
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                                className="object-cover object-center w-full h-full bg-accent/5"
                                                 loading="lazy"
                                             />
                                         </div>

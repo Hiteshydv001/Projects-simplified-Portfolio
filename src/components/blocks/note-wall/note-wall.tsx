@@ -107,7 +107,7 @@ export default function NoteWall() {
             }}
             className={`${
               note.color
-            } p-6 rounded-xl shadow-lg transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 relative overflow-hidden backdrop-blur-sm hover:backdrop-blur-lg bg-opacity-95 hover:bg-opacity-100 border border-white/20`}
+            } p-4 rounded-xl shadow-lg transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 relative overflow-hidden backdrop-blur-md hover:backdrop-blur-lg bg-opacity-90 hover:bg-opacity-95 border border-white/20 dark:border-white/10`}
             style={{
               rotate: (Math.random() * 6 - 3) + 'deg',
               transformOrigin: 'center',
@@ -127,7 +127,7 @@ export default function NoteWall() {
                 damping: 30,
                 delay: 0.2 
               }}
-              className="absolute top-2 right-2 text-2xl drop-shadow-md"
+              className="absolute top-2 right-2 text-xl drop-shadow-md"
             >
               {note.emoji}
             </motion.div>
@@ -136,7 +136,7 @@ export default function NoteWall() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-slate-800 dark:text-slate-900 mb-4 mt-6 whitespace-pre-wrap break-words leading-relaxed"
+                className="text-slate-800 dark:text-slate-100 mb-3 mt-4 whitespace-pre-wrap break-words leading-relaxed text-sm"
               >
                 {note.text}
               </motion.p>
@@ -145,14 +145,14 @@ export default function NoteWall() {
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.3 }}
-                  className="text-sm text-slate-600 dark:text-slate-700 font-medium italic"
+                  className="text-xs text-slate-600 dark:text-slate-400 font-medium italic"
                 >
                   – {note.name}
                 </motion.p>
               )}
             </div>
-            <div className="absolute inset-0 bg-white/50 dark:bg-black/5 rounded-xl -z-10" />
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/30 dark:from-white/5 dark:to-white/10 rounded-xl -z-5" />
+            <div className="absolute inset-0 bg-white/50 dark:bg-black/20 rounded-xl -z-10" />
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/30 dark:from-white/10 dark:to-white/20 rounded-xl -z-5" />
           </motion.div>
         ))}
       </AnimatePresence>

@@ -95,15 +95,15 @@ export default function Playground() {
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="p-6 max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg"
+      className="p-4 max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg text-sm"
     >
       {/* Input Section */}
-      <div className="mb-6">
+      <div className="mb-4">
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full p-4 border rounded-lg bg-gray-50 dark:bg-gray-700 
-                     dark:text-white focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 border rounded-lg bg-gray-50 dark:bg-gray-700 
+                     dark:text-white focus:ring-2 focus:ring-primary text-sm"
           rows={3}
           placeholder="Enter text to analyze..."
         />
@@ -112,7 +112,7 @@ export default function Playground() {
           <button
             onClick={runTransformer}
             disabled={loading}
-            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700
+            className="px-4 py-1.5 bg-primary text-white rounded-lg hover:bg-primary/90 text-xs
                        disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {loading ? "Processing..." : "Run Transformer"}
@@ -121,7 +121,7 @@ export default function Playground() {
           <button
             onClick={generateNextLine}
             disabled={generating || !text}
-            className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700
+            className="px-4 py-1.5 bg-secondary text-white rounded-lg hover:bg-secondary/90 text-xs
                        disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
             {generating ? "Generating..." : "Predict Next Line"}
@@ -131,7 +131,7 @@ export default function Playground() {
           <select
             value={numLayers}
             onChange={(e) => setNumLayers(Number(e.target.value))}
-            className="px-4 py-2 border rounded-lg bg-gray-50 dark:bg-gray-700"
+            className="px-3 py-1.5 border rounded-lg bg-gray-50 dark:bg-gray-700 text-xs"
           >
             {[2, 3, 4, 5, 6].map(num => (
               <option key={num} value={num}>Layers: {num}</option>
@@ -141,7 +141,7 @@ export default function Playground() {
           <select
             value={selectedHead}
             onChange={(e) => setSelectedHead(e.target.value)}
-            className="px-4 py-2 border rounded-lg bg-gray-50 dark:bg-gray-700"
+            className="px-3 py-1.5 border rounded-lg bg-gray-50 dark:bg-gray-700 text-xs"
           >
             <option value="all">All Heads</option>
             {[...Array(8)].map((_, i) => (
@@ -152,9 +152,9 @@ export default function Playground() {
           <div className="flex gap-2">
             <button
               onClick={() => setViewMode("heatmap")}
-              className={`px-4 py-2 rounded-lg ${
+              className={`px-3 py-1.5 rounded-lg text-xs ${
                 viewMode === "heatmap" 
-                  ? "bg-blue-600 text-white" 
+                  ? "bg-primary text-white" 
                   : "bg-gray-200 dark:bg-gray-700"
               }`}
             >
@@ -162,9 +162,9 @@ export default function Playground() {
             </button>
             <button
               onClick={() => setViewMode("arcs")}
-              className={`px-4 py-2 rounded-lg ${
+              className={`px-3 py-1.5 rounded-lg text-xs ${
                 viewMode === "arcs" 
-                  ? "bg-blue-600 text-white" 
+                  ? "bg-primary text-white" 
                   : "bg-gray-200 dark:bg-gray-700"
               }`}
             >
@@ -172,9 +172,9 @@ export default function Playground() {
             </button>
             <button
               onClick={() => setViewMode("embeddings")}
-              className={`px-4 py-2 rounded-lg ${
+              className={`px-3 py-1.5 rounded-lg text-xs ${
                 viewMode === "embeddings" 
-                  ? "bg-blue-600 text-white" 
+                  ? "bg-primary text-white" 
                   : "bg-gray-200 dark:bg-gray-700"
               }`}
             >
@@ -187,14 +187,14 @@ export default function Playground() {
       {/* Generated Text Section */}
       {generatedText && (
         <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
-          <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Generated Continuation:</h3>
-          <div className="space-y-2">
-            <div className="text-gray-500 dark:text-gray-400">
+          <h3 className="text-xs font-medium text-gray-500 dark:text-gray-400 mb-2">Generated Continuation:</h3>
+          <div className="space-y-1.5">
+            <div className="text-gray-500 dark:text-gray-400 text-xs">
               <span className="font-medium">Input:</span> {text}
             </div>
-            <div className="text-gray-900 dark:text-gray-100">
-              <span className="font-medium text-green-600 dark:text-green-400">→</span>{" "}
-              <span className="text-green-600 dark:text-green-400">{generatedText}</span>
+            <div className="text-gray-900 dark:text-gray-100 text-xs">
+              <span className="font-medium text-secondary dark:text-secondary/80">→</span>{" "}
+              <span className="text-secondary dark:text-secondary/80">{generatedText}</span>
             </div>
           </div>
         </div>
@@ -236,18 +236,18 @@ export default function Playground() {
               <button
                 onClick={() => setCurrentLayer(l => Math.max(0, l - 1))}
                 disabled={currentLayer === 0}
-                className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-600
+                className="px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-600 text-xs
                          disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Previous Layer
               </button>
-              <span className="px-4 py-2">
+              <span className="px-3 py-1.5 text-xs">
                 Layer {currentLayer + 1} of {numLayers}
               </span>
               <button
                 onClick={() => setCurrentLayer(l => Math.min(numLayers - 1, l + 1))}
                 disabled={currentLayer === numLayers - 1}
-                className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-600
+                className="px-3 py-1.5 rounded-lg bg-gray-200 dark:bg-gray-600 text-xs
                          disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next Layer
@@ -255,7 +255,7 @@ export default function Playground() {
             </div>
           </div>
         ) : (
-          <div className="flex items-center justify-center h-[300px] text-gray-400">
+          <div className="flex items-center justify-center h-[300px] text-gray-400 text-xs">
             Run the transformer to see visualizations
           </div>
         )}

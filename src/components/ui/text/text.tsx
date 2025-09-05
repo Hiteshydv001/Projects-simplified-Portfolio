@@ -21,7 +21,7 @@ type TextTransform = NonNullable<TextProps['transform']>
 
 // Default styles that will be applied to every Text component
 const defaultStyles = {
-    size: 'sm' as TextSize,
+    size: 'xs' as TextSize,
     weight: 'normal' as TextWeight,
     variant: 'default' as TextVariant,
     align: 'left' as TextAlign,
@@ -30,9 +30,9 @@ const defaultStyles = {
 }
 
 const textSizes = {
-    xs: 'text-[10px] sm:text-xs md:text-xs',           // 10px -> 12px -> 12px
-    sm: 'text-xs sm:text-sm md:text-sm',               // 12px -> 14px -> 14px
-    md: 'text-[13px] sm:text-[15px] md:text-[15px]',   // 13px -> 15px -> 15px
+    xs: 'text-[8px] sm:text-[10px] md:text-[10px]',    // 8px -> 10px -> 10px
+    sm: 'text-[10px] sm:text-xs md:text-xs',           // 10px -> 12px -> 12px
+    md: 'text-xs sm:text-sm md:text-sm',               // 12px -> 14px -> 14px
     base: 'text-sm sm:text-base md:text-base',         // 14px -> 16px -> 16px
     lg: 'text-base sm:text-lg md:text-lg',             // 16px -> 18px -> 18px
     xl: 'text-lg sm:text-xl md:text-xl',               // 18px -> 20px -> 20px

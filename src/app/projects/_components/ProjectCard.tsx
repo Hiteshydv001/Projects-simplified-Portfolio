@@ -36,7 +36,8 @@ export function ProjectCard({ project, isLast }: ProjectCardProps) {
                                         src={project.images[0].src}
                                         alt={project.images[0].alt}
                                         fill
-                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                        className="object-cover object-center"
                                     />
                                 </div>
                             </Link>

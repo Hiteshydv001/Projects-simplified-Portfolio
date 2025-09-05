@@ -5,22 +5,22 @@
   }
 
   h1 {
-    @apply text-3xl font-bold md:text-4xl lg:text-5xl;
+    @apply text-xl font-bold md:text-2xl lg:text-3xl;
     @apply bg-gradient-to-br from-primary to-secondary bg-clip-text text-transparent;
   }
 
   h2 {
-    @apply text-2xl font-semibold md:text-3xl;
+    @apply text-lg font-semibold md:text-xl;
     @apply bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent;
   }
 
   h3 {
-    @apply text-xl font-semibold md:text-2xl;
+    @apply text-base font-semibold md:text-lg;
   }
 
   /* Body Text */
   body {
-    @apply font-sans antialiased text-base md:text-lg;
+    @apply font-sans antialiased text-xs md:text-sm;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
 
@@ -42,13 +42,13 @@
 
   /* Section Headers */
   .section-header {
-    @apply flex items-center space-x-2 font-display font-semibold text-2xl;
+    @apply flex items-center space-x-2 font-display font-semibold text-lg;
     @apply before:content-['#'] before:text-primary/50 before:font-mono;
   }
 
   /* Project Cards & Featured Content */
   .card-title {
-    @apply font-display font-semibold text-xl;
+    @apply font-display font-semibold text-base;
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent;
   }
 
