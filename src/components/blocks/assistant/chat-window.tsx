@@ -10,17 +10,17 @@ interface Message {
 }
 
 const SUGGESTED_QUESTIONS = [
-  "Tell me about your research papers",
-  "What patents have you filed?",
-  "Show me your AI projects",
-  "What's your background?"
+  "Projects",
+  "Experience",
+  "Research",
+  "Patents"
 ]
 
 export function ChatWindow() {
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: "assistant", 
-      text: "Hi 👋 I'm your portfolio assistant. Ask me about patents, research papers, or projects!" 
+      text: "Hi 👋 How can I help you today?" 
     }
   ])
   const [input, setInput] = useState("")
