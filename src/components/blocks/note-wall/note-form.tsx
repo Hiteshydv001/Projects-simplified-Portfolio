@@ -2,17 +2,9 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { supabase } from '@/lib/supabase/supabase'
 import { useToast } from '@/components/ui/toast/use-toast'
 
-const COLORS = [
-  'bg-gradient-to-br from-yellow-100 to-orange-100',
-  'bg-gradient-to-br from-green-100 to-emerald-100',
-  'bg-gradient-to-br from-blue-100 to-cyan-100',
-  'bg-gradient-to-br from-pink-100 to-rose-100',
-  'bg-gradient-to-br from-purple-100 to-indigo-100',
-  'bg-gradient-to-br from-orange-100 to-amber-100'
-]
+const COLORS = ['orange', 'emerald', 'blue', 'pink', 'purple', 'amber']
 
 const EMOJIS = ['🚀', '💫', '✨', '🌟', '💡', '🎉', '🎨', '🎭', '🎪', '🎢']
 
@@ -31,15 +23,21 @@ export default function NoteForm() {
     setIsSubmitting(true)
     
     try {
-      const { error } = await supabase.from('notes').insert({
-        text,
-        name: name || null,
-        email: email || null,
-        emoji,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)]
+      const response = await fetch('/api/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text,
+          name: name || null,
+          email: email || null,
+          emoji,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)]
+        })
       })
 
-      if (error) throw error
+      if (!response.ok) {
+        throw new Error('Failed to submit note')
+      }
 
       setText('')
       setName('')
@@ -50,11 +48,12 @@ export default function NoteForm() {
         title: "Note dropped successfully! 🎉",
         description: "Your note has been added to the wall.",
       })
+      window.dispatchEvent(new Event('refresh-notes'))
     } catch (error) {
-      console.error('Error submitting note:', error)
+      console.warn('Error connecting to notes database:', error)
       toast({
-        title: "Error dropping note",
-        description: "Please try again.",
+        title: "Note submission unavailable",
+        description: "The notes feature is currently offline.",
         variant: "destructive"
       })
     } finally {
@@ -68,19 +67,16 @@ export default function NoteForm() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: "spring", stiffness: 500, damping: 30 }}
       onSubmit={handleSubmit}
-      className="p-6 bg-white/90 dark:bg-slate-800/90 backdrop-blur-lg rounded-2xl shadow-lg border border-slate-200/50 dark:border-slate-700/50 hover:border-purple-500/50 dark:hover:border-purple-500/50 transition-all duration-300"
+      className="p-5 bg-transparent backdrop-blur-md rounded-2xl border border-border/40 hover:border-accent/40 shadow-sm transition-all duration-300"
     >
       <div className="mb-4">
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Leave a note..."
-          className="w-full p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent resize-none transition-all duration-300 hover:bg-white dark:hover:bg-slate-900"
+          className="w-full p-3 rounded-xl border border-border/20 bg-transparent focus:ring-2 focus:ring-accent/40 focus:border-transparent resize-none transition-all duration-300"
           required
-          rows={4}
-          style={{ 
-            boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.05)'
-          }}
+          rows={3}
         />
       </div>
       
@@ -90,28 +86,28 @@ export default function NoteForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name (optional)"
-          className="p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent"
+          className="p-2.5 rounded-xl border border-border/20 bg-transparent focus:ring-2 focus:ring-accent/40 focus:border-transparent outline-none transition-all"
         />
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Your email (optional)"
-          className="p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 focus:ring-2 focus:ring-purple-500 dark:focus:ring-purple-400 focus:border-transparent"
+          className="p-2.5 rounded-xl border border-border/20 bg-transparent focus:ring-2 focus:ring-accent/40 focus:border-transparent outline-none transition-all"
         />
       </div>
 
-      <div className="flex items-center justify-between">
-        <div className="flex gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex flex-wrap gap-2">
           {EMOJIS.map((e) => (
             <button
               key={e}
               type="button"
               onClick={() => setEmoji(e)}
-              className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${
+              className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all ${
                 emoji === e
-                  ? 'bg-purple-100 dark:bg-purple-900'
-                  : 'hover:bg-slate-100 dark:hover:bg-slate-700'
+                  ? 'bg-accent/20 border border-accent/40'
+                  : 'hover:bg-accent/10 border border-transparent'
               }`}
             >
               {e}
@@ -122,7 +118,7 @@ export default function NoteForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-purple-500 hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-700 text-white px-6 py-2 rounded-xl font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-accent hover:bg-accent/80 text-white px-5 py-2 rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
         >
           {isSubmitting ? 'Dropping note...' : 'Drop Note'} {emoji}
         </button>

@@ -3,10 +3,8 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { cn } from '@/lib/utils/utils'
 import TextHeading from '@/components/ui/text-heading/text-heading'
 import Text from '@/components/ui/text/text'
-import Ruler from '@/components/ui/ruler/ruler'
 
 interface ResearchPaper {
     id: string;
@@ -49,19 +47,19 @@ export function ResearchPapers() {
                 Research Papers
             </TextHeading>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {papers.map((paper) => (
                     <Link 
                         key={paper.id}
                         href={`/research/${paper.id}`}
-                        className="group"
+                        className="group block h-full"
                     >
                         <motion.div
-                            whileHover={{ scale: 1.02 }}
-                            className="flex flex-col h-full overflow-hidden rounded-lg border border-border bg-card hover:bg-accent/5 transition-colors"
+                            whileHover={{ y: -5, scale: 1.01 }}
+                            className="flex flex-col h-full bg-transparent backdrop-blur-[2px] rounded-2xl overflow-hidden border border-border/20 transition-all duration-300 group-hover:border-accent/30 group-hover:shadow-lg"
                         >
                             {/* Image Container */}
-                            <div className="relative w-full h-48 overflow-hidden">
+                            <div className="relative w-full h-64 overflow-hidden bg-transparent border-b border-border/20">
                                 <Image
                                     src={paper.image}
                                     alt={paper.imageAlt}
@@ -69,39 +67,37 @@ export function ResearchPapers() {
                                     className="object-cover group-hover:scale-105 transition-transform duration-300"
                                     sizes="(max-width: 768px) 100vw, 50vw"
                                 />
-                                {/* Gradient Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
-                                {/* Emoji Badge */}
-                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-xl shadow-lg">
+                                
+                                {/* Floating Emoji Badge */}
+                                <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-background/40 border border-border/20 backdrop-blur-md flex items-center justify-center text-2xl shadow-lg">
                                     {paper.emoji}
                                 </div>
                             </div>
 
                             {/* Content */}
-                            <div className="p-6 flex-1 flex flex-col">
+                            <div className="p-8 flex-1 flex flex-col bg-transparent relative">
                                 <Text className="font-semibold mb-2 group-hover:text-accent transition-colors">
                                     {paper.title}
                                 </Text>
+
                                 <Text variant="caption" className="text-muted-foreground mb-4">
                                     {paper.conference} • {paper.year}
                                 </Text>
-                                <Text variant="caption" className="flex-1">
+
+                                <Text variant="caption" className="flex-1 line-clamp-4">
                                     {paper.shortDescription}
                                 </Text>
-                                <div className="mt-4 flex items-center text-accent">
+
+                                <div className="mt-6 flex items-center text-accent">
                                     <span className="text-sm font-medium">Read more</span>
-                                    <svg 
-                                        className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" 
-                                        fill="none" 
-                                        viewBox="0 0 24 24" 
+                                    <svg
+                                        className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
                                         stroke="currentColor"
                                     >
-                                        <path 
-                                            strokeLinecap="round" 
-                                            strokeLinejoin="round" 
-                                            strokeWidth={2} 
-                                            d="M17 8l4 4m0 0l-4 4m4-4H3" 
-                                        />
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                     </svg>
                                 </div>
                             </div>

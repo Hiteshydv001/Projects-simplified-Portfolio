@@ -19,7 +19,7 @@ function NavLink({ href, children, onClick }: NavLinkProps) {
             href={href}
             onClick={onClick}
             className={cn(
-                "block w-full",
+                "block",
                 "text-sm text-muted-foreground hover:text-purple-500",
                 "transition-colors duration-200",
                 monoFont.className
@@ -36,9 +36,12 @@ export function Navbar() {
     const links = [
         { href: '/about', label: 'About' },
         { href: '/paper-implementations', label: 'Paper_Implementations' },
+        { href: '/articles', label: 'Articles' },
         { href: '/portfolio', label: 'Portfolio' },
+        { href: '/certificates', label: 'Certificates' },
         { href: '/ai-playground', label: 'AI_Playground' },
-        { href: '/leave_note_for_me', label: 'Leave_Note' }
+        { href: '/leave_note_for_me', label: 'Leave_Note' },
+        { href: '/resume', label: 'Resume' }
     ]
 
     // Close menu when clicking outside
@@ -55,9 +58,9 @@ export function Navbar() {
     }, [isMenuOpen]);
 
     return (
-        <nav className={cn(monoFont.className, "relative z-50")}>
-            {/* Desktop Navigation */}
-            <div className="hidden sm:flex items-center gap-6">
+        <nav className={cn(monoFont.className, "relative z-50")}> 
+            {/* Desktop Navigation + Command Palette */}
+            <div className="hidden lg:flex items-center justify-center gap-4 xl:gap-5 whitespace-nowrap">
                 {links.map((link) => (
                     <motion.div
                         key={link.href}
@@ -73,7 +76,7 @@ export function Navbar() {
             </div>
 
             {/* Mobile Navigation */}
-            <div className="sm:hidden mobile-menu-container -ml-2">
+            <div className="lg:hidden mobile-menu-container -ml-2">
                 <button
                     onClick={(e) => {
                         e.stopPropagation();

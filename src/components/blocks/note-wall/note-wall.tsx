@@ -2,89 +2,78 @@
 
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Note, supabase } from '@/lib/supabase/supabase'
 import { useToast } from '@/components/ui/toast/use-toast'
+import Text from '@/components/ui/text/text'
+
+interface Note {
+  _id: string;
+  text: string;
+  name?: string;
+  emoji: string;
+  color: string;
+  createdAt: string;
+}
+
+const COLOR_MAP: Record<string, string> = {
+  orange: 'from-orange-100/40 to-amber-100/40 dark:from-orange-500/10 dark:to-amber-500/10 border-orange-200/50 dark:border-orange-500/30',
+  emerald: 'from-emerald-100/40 to-teal-100/40 dark:from-emerald-500/10 dark:to-teal-500/10 border-emerald-200/50 dark:border-emerald-500/30',
+  blue: 'from-blue-100/40 to-sky-100/40 dark:from-blue-500/10 dark:to-sky-500/10 border-blue-200/50 dark:border-blue-500/30',
+  pink: 'from-rose-100/40 to-pink-100/40 dark:from-rose-500/10 dark:to-pink-500/10 border-rose-200/50 dark:border-rose-500/30',
+  purple: 'from-purple-100/40 to-indigo-100/40 dark:from-purple-500/10 dark:to-indigo-500/10 border-purple-200/50 dark:border-purple-500/30',
+  amber: 'from-yellow-100/40 to-orange-100/40 dark:from-yellow-500/10 dark:to-orange-500/10 border-yellow-200/50 dark:border-yellow-500/30',
+}
 
 export default function NoteWall() {
   const [notes, setNotes] = useState<Note[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const { toast } = useToast()
 
-  useEffect(() => {
-    const fetchNotes = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('notes')
-          .select('*')
-          .order('created_at', { ascending: false })
-          .limit(50)
-
-        if (error) throw error
-        setNotes(data || [])
-      } catch (error) {
-        console.error('Error fetching notes:', error)
-        toast({
-          title: "Error fetching notes",
-          description: "Please try refreshing the page.",
-          variant: "destructive"
-        })
-      } finally {
-        setIsLoading(false)
+  const fetchNotes = async () => {
+    try {
+      const response = await fetch('/api/notes')
+      const data = await response.json()
+      if (Array.isArray(data)) {
+        setNotes(data)
       }
+    } catch (error) {
+      console.warn('Error connecting to notes database:', error)
+      setNotes([])
+    } finally {
+      setIsLoading(false)
     }
+  }
 
+  useEffect(() => {
     fetchNotes()
 
-    // Subscribe to realtime changes
-    const channel = supabase.channel('notes-channel')
-    
-    channel
-      .on('postgres_changes', 
-        { 
-          event: 'INSERT', 
-          schema: 'public', 
-          table: 'notes' 
-        }, 
-        (payload) => {
-          setNotes((current) => {
-            const newNote = payload.new as Note
-            // Avoid duplicates
-            if (current.find(note => note.id === newNote.id)) {
-              return current
-            }
-            return [newNote, ...current.slice(0, 49)]
-          })
-          
-          toast({
-            title: "New note dropped! 🎉",
-            description: "Someone just shared their thoughts.",
-            variant: "default"
-          })
-        }
-      )
-      .subscribe()
-
-    return () => {
-      channel.unsubscribe()
+    const handleRefresh = () => {
+      fetchNotes()
     }
+
+    window.addEventListener('refresh-notes', handleRefresh)
+    return () => window.removeEventListener('refresh-notes', handleRefresh)
   }, [])
 
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
-            className="animate-pulse h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 rounded-xl shadow-lg border border-white/20 backdrop-blur-sm"
-            style={{
-              rotate: (Math.random() * 6 - 3) + 'deg',
-              transformOrigin: 'center',
-            }}
-          />
-        ))}
+        {[...Array(6)].map((_, i) => {
+          // Use index-based rotation for consistent SSR/client rendering
+          const rotation = ((i * 2.5) % 6) - 3;
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="animate-pulse h-48 bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 rounded-xl shadow-lg border border-white/20 backdrop-blur-sm"
+              style={{
+                rotate: rotation + 'deg',
+                transformOrigin: 'center',
+              }}
+            />
+          );
+        })}
       </div>
     )
   }
@@ -92,69 +81,46 @@ export default function NoteWall() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 p-4">
       <AnimatePresence mode="popLayout">
-        {notes.map((note, index) => (
-          <motion.div
-            key={note.id}
-            layout
-            initial={{ opacity: 0, scale: 0.8, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: -20 }}
-            transition={{ 
-              type: "spring",
-              stiffness: 500,
-              damping: 30,
-              mass: 1
-            }}
-            className={`${
-              note.color
-            } p-4 rounded-xl shadow-lg transform hover:-translate-y-2 hover:shadow-2xl transition-all duration-500 relative overflow-hidden backdrop-blur-md hover:backdrop-blur-lg bg-opacity-90 hover:bg-opacity-95 border border-white/20 dark:border-white/10`}
-            style={{
-              rotate: (Math.random() * 6 - 3) + 'deg',
-              transformOrigin: 'center',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
-            }}
-            whileHover={{ 
-              scale: 1.02,
-              rotate: 0
-            }}
-          >
-            <motion.div 
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              transition={{ 
-                type: "spring",
-                stiffness: 500,
-                damping: 30,
-                delay: 0.2 
+        {notes.map((note, idx) => {
+          // Stable rotation based on index to prevent hydration mismatch
+          const rotation = ((idx * 3.5) % 8) - 4;
+          const colorClasses = COLOR_MAP[note.color] || COLOR_MAP.orange;
+          
+          return (
+            <motion.div
+              key={note._id}
+              layout
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              className={`bg-gradient-to-br ${colorClasses} p-6 rounded-xl shadow-sm border backdrop-blur-md transition-all duration-300 relative overflow-hidden`}
+              style={{
+                rotate: rotation + 'deg',
+                transformOrigin: 'center',
               }}
-              className="absolute top-2 right-2 text-xl drop-shadow-md"
+              whileHover={{ 
+                scale: 1.02,
+                rotate: 0,
+                zIndex: 10,
+                boxShadow: '0 10px 30px -10px rgba(0,0,0,0.1)'
+              }}
             >
-              {note.emoji}
+              <motion.div className="absolute top-3 right-3 text-2xl drop-shadow-sm">
+                {note.emoji}
+              </motion.div>
+              <div className="relative">
+                <Text className="text-foreground/90 mb-4 mt-2 whitespace-pre-wrap break-words leading-relaxed text-sm">
+                  {note.text}
+                </Text>
+                {note.name && (
+                  <Text variant="caption" className="text-muted-foreground/80 font-medium italic">
+                    – {note.name}
+                  </Text>
+                )}
+              </div>
             </motion.div>
-            <div className="relative z-10">
-              <motion.p 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-slate-800 dark:text-slate-100 mb-3 mt-4 whitespace-pre-wrap break-words leading-relaxed text-sm"
-              >
-                {note.text}
-              </motion.p>
-              {note.name && (
-                <motion.p 
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-xs text-slate-600 dark:text-slate-400 font-medium italic"
-                >
-                  – {note.name}
-                </motion.p>
-              )}
-            </div>
-            <div className="absolute inset-0 bg-white/50 dark:bg-black/20 rounded-xl -z-10" />
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/30 dark:from-white/10 dark:to-white/20 rounded-xl -z-5" />
-          </motion.div>
-        ))}
+          );
+        })}
       </AnimatePresence>
     </div>
   )

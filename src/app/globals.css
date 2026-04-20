@@ -1,6 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
  
 @layer base {
   :root {
@@ -71,7 +82,7 @@
     border-color: hsl(var(--border));
   }
   body {
-    background-color: hsl(var(--background) / 0.95);
+    background-color: transparent;
     color: hsl(var(--foreground));
     font-family: var(--font-sans);
     font-size: 1.25rem;

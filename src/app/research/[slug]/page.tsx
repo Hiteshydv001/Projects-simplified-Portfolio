@@ -1,14 +1,15 @@
 'use client'
 
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import BaseContainer from '@/components/layout/container/base-container'
 import { StackVertical } from '@/components/layout/layout-stack/layout-stack'
+import { DynamicBreadcrumb } from '@/components/ui/primitives/breadcrumb'
 import TextHeading from '@/components/ui/text-heading/text-heading'
 import Text from '@/components/ui/text/text'
 import Ruler from '@/components/ui/ruler/ruler'
-
+import { ThemeToggle } from '@/components/ui/theme/theme-toggle'
 const papers = {
     'train-ticket': {
         emoji: '🚆',
@@ -53,6 +54,11 @@ const papers = {
 
 export default function ResearchPaperPage() {
     const { slug } = useParams()
+    
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     const paper = papers[slug as keyof typeof papers]
 
     if (!paper) {
@@ -60,15 +66,21 @@ export default function ResearchPaperPage() {
     }
 
     return (
-        <BaseContainer size="md" paddingX="md" paddingY="lg">
+        <BaseContainer size="md" paddingX="md" paddingY="lg" className="bg-transparent/0">
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                initial={false}
+                animate={{ opacity: 1, transform: 'none' }}
+                style={{ opacity: 1, transform: 'none' }}
             >
-                <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                    ← Back to home
-                </Link>
+                <div className="flex items-center justify-between gap-4">
+                    <DynamicBreadcrumb
+                        items={[
+                            { href: '/', label: 'Home', emoji: '👾' },
+                            { href: '/research', label: 'Research' },
+                        ]}
+                    />
+                    <ThemeToggle />
+                </div>
 
                 <StackVertical gap="lg" className="mt-8">
                     <div>

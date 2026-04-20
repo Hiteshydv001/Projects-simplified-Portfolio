@@ -11,6 +11,30 @@ import { monoFont } from '@/styles/fonts/fonts'
 import CodeBlock from '@/components/blocks/code-block/code-block'
 import Math from '@/components/ui/math/math'
 
+const getNodeText = (node: React.ReactNode): string => {
+    if (typeof node === 'string' || typeof node === 'number') {
+        return String(node)
+    }
+
+    if (Array.isArray(node)) {
+        return node.map(getNodeText).join('')
+    }
+
+    if (React.isValidElement(node)) {
+        return getNodeText(node.props.children)
+    }
+
+    return ''
+}
+
+const slugifyHeading = (text: string) => {
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+}
+
 // Helper function to process text and wrap math expressions
 const processMathInText = (text: string): (string | React.ReactElement)[] => {
   const parts: (string | React.ReactElement)[] = []
@@ -70,22 +94,42 @@ const processMathInText = (text: string): (string | React.ReactElement)[] => {
 export const mdxComponents: MDXComponents = {
     // Headings
     h1: ({ children }) => (
-        <TextHeading as="h1" weight="bold" className="mt-8 mb-4">
+        <TextHeading
+            as="h1"
+            weight="bold"
+            className="mt-8 mb-4"
+            id={slugifyHeading(getNodeText(children))}
+        >
             {children}
         </TextHeading>
     ),
     h2: ({ children }) => (
-        <TextHeading as="h2" weight="bold" className="mt-6 mb-3">
+        <TextHeading
+            as="h2"
+            weight="bold"
+            className="mt-6 mb-3"
+            id={slugifyHeading(getNodeText(children))}
+        >
             {children}
         </TextHeading>
     ),
     h3: ({ children }) => (
-        <TextHeading as="h3" weight="medium" className="mt-4 mb-2">
+        <TextHeading
+            as="h3"
+            weight="medium"
+            className="mt-4 mb-2"
+            id={slugifyHeading(getNodeText(children))}
+        >
             {children}
         </TextHeading>
     ),
     h4: ({ children }) => (
-        <TextHeading as="h4" weight="medium" className="mt-3 mb-2">
+        <TextHeading
+            as="h4"
+            weight="medium"
+            className="mt-3 mb-2"
+            id={slugifyHeading(getNodeText(children))}
+        >
             {children}
         </TextHeading>
     ),

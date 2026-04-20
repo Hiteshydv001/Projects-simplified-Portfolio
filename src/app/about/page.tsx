@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import BaseContainer from "@/components/layout/container/base-container"
 import { StackVertical } from "@/components/layout/layout-stack/layout-stack"
 import TextHeading from "@/components/ui/text-heading/text-heading"
@@ -9,6 +10,10 @@ import { DynamicBreadcrumb } from "@/components/ui/primitives/breadcrumb"
 import { ThemeToggle } from "@/components/ui/theme/theme-toggle"
 
 export default function About() {
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
+
     return (
         <BaseContainer size="md" paddingX="md" paddingY="lg">
             <StackVertical gap="md">

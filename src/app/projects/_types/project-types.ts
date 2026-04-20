@@ -1,7 +1,9 @@
 export type ProjectCategory = 
     | "ai-fullstack"
     | "machine-learning"
-    | "blockchain";
+    | "blockchain"
+    | "web-dev"
+    | "utilities";
 
 // Used for filtering in the UI
 export const projectFilters = [
@@ -16,7 +18,9 @@ export const projectFilters = [
 export const categoryLabels: Record<ProjectCategory, string> = {
     "ai-fullstack": "AI & Full Stack",
     "machine-learning": "Machine Learning",
-    "blockchain": "Blockchain"
+    "blockchain": "Blockchain",
+    "web-dev": "Web Development",
+    "utilities": "Utilities"
 };
 
 export interface Project {

@@ -64,10 +64,10 @@ export function Patents() {
                     >
                         <motion.div
                             whileHover={{ scale: 1.01 }}
-                            className="flex flex-col sm:flex-row gap-6 overflow-hidden rounded-lg border border-border bg-card hover:bg-accent/5 transition-colors"
+                            className="flex flex-col sm:flex-row gap-6 overflow-hidden rounded-xl border border-border/20 bg-transparent backdrop-blur-[2px] transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/5 group-hover:border-accent/30 group-hover:shadow-lg"
                         >
                             {/* Image Container */}
-                            <div className="relative w-full sm:w-48 h-48 sm:h-auto overflow-hidden">
+                            <div className="relative w-full sm:w-48 h-48 sm:h-auto overflow-hidden bg-transparent">
                                 <Image
                                     src={patent.image}
                                     alt={patent.imageAlt}
@@ -78,13 +78,13 @@ export function Patents() {
                                 {/* Gradient Overlay */}
                                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent sm:bg-none" />
                                 {/* Emoji Badge */}
-                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center text-xl shadow-lg">
+                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/40 border border-white/20 backdrop-blur-md flex items-center justify-center text-xl shadow-lg">
                                     {patent.emoji}
                                 </div>
                             </div>
 
                             {/* Content */}
-                            <div className="p-6 flex-1 flex flex-col">
+                            <div className="p-6 flex-1 flex flex-col bg-transparent">
                                 <Text className="font-semibold mb-2 group-hover:text-accent transition-colors">
                                     {patent.title}
                                 </Text>

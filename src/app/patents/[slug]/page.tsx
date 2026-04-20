@@ -1,13 +1,15 @@
 'use client'
 
+import React, { useEffect } from 'react'
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import BaseContainer from '@/components/layout/container/base-container'
 import { StackVertical } from '@/components/layout/layout-stack/layout-stack'
+import { DynamicBreadcrumb } from '@/components/ui/primitives/breadcrumb'
 import TextHeading from '@/components/ui/text-heading/text-heading'
 import Text from '@/components/ui/text/text'
 import Ruler from '@/components/ui/ruler/ruler'
+import { ThemeToggle } from '@/components/ui/theme/theme-toggle'
 
 const patents = {
     'smart-pillow': {
@@ -166,7 +168,10 @@ const patents = {
 }
 
 export default function PatentPage() {
-    const { slug } = useParams()
+    const { slug } = useParams()    
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const patent = patents[slug as keyof typeof patents]
 
     if (!patent) {
@@ -180,9 +185,15 @@ export default function PatentPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
-                    ← Back to home
-                </Link>
+                <div className="flex items-center justify-between gap-4">
+                    <DynamicBreadcrumb
+                        items={[
+                            { href: '/', label: 'Home', emoji: '👾' },
+                            { label: 'Patents' },
+                        ]}
+                    />
+                    <ThemeToggle />
+                </div>
 
                 <StackVertical gap="lg" className="mt-8">
                     <div>

@@ -1,3 +1,5 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import { Code, Brain, Divide, Rotate3D } from 'lucide-react'
 import { StackVertical } from '@/components/layout/layout-stack/layout-stack'

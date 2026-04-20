@@ -14,6 +14,15 @@ const nextConfig = {
     domains: ['localhost'],
     unoptimized: true,
   },
+  async redirects() {
+    return [
+      {
+        source: '/CV_Hitesh_Kumar.pdf',
+        destination: '/resume',
+        permanent: false,
+      },
+    ]
+  },
   async rewrites() {
     return [
       {

@@ -8,6 +8,7 @@ import { ThemeToggle } from "@/components/ui/theme/theme-toggle"
 import Text from "@/components/ui/text/text"
 import { SectionFooter } from "@/components/layout/footer/SectionFooter"
 import Playground from '@/app/ai-playground/_components/Playground';
+import Pictionary from '@/app/ai-playground/_components/Pictionary';
 
 export default function AIPlaygroundPage() {
   return (
@@ -32,6 +33,15 @@ export default function AIPlaygroundPage() {
           </Text>
         </div>
         <Playground />
+        <div className="pt-4">
+          <TextHeading as="h2" weight="bold">
+            Vision Pictionary
+          </TextHeading>
+          <Text variant="muted" className="mb-6">
+            Draw on the canvas and let Gemini Vision guess what it is. It works best with bold shapes and clear strokes.
+          </Text>
+          <Pictionary />
+        </div>
       </StackVertical>
       <SectionFooter color="purple" showToTop={false} />
     </BaseContainer>
