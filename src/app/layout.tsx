@@ -9,7 +9,12 @@ import { PaperBackground } from '@/components/ui/paper-background/paper-backgrou
 import ToasterProvider from '@/components/ui/toast/toaster-provider'
 import { AssistantWidget } from '@/components/blocks/assistant/assistant-widget'
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
+    || process.env.NEXT_PUBLIC_APP_URL
+    || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'Hitesh',
   description: 'Welcome to my personal portfolio where I share my projects, thoughts, and learning journey',
 }
