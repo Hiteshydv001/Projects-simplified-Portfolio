@@ -15,9 +15,9 @@ export default function About() {
     }, [])
 
     return (
-        <BaseContainer size="md" paddingX="md" paddingY="lg">
+        <BaseContainer size="md" paddingX="md" paddingY="lg" className="page-shell">
             <StackVertical gap="md">
-                <div className="flex items-center justify-between">
+                <div className="page-toolbar">
                     <DynamicBreadcrumb 
                         items={[
                             { href: '/', label: 'Home', emoji: '👾' },
@@ -27,7 +27,7 @@ export default function About() {
                     <ThemeToggle />
                 </div>
 
-                <div>
+                <div className="page-hero">
                 <TextHeading as="h1" weight="bold">
                     About Me
                 </TextHeading>

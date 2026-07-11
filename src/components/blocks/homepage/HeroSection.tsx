@@ -19,7 +19,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="relative pb-8"
+            className="surface-card relative overflow-hidden rounded-3xl px-5 py-7 sm:px-8 sm:py-10"
         >
             <div className="relative">
                 <StackVertical gap="xs">
@@ -208,11 +208,11 @@ export function HeroSection() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.7 }}
-                className="mt-8 -mb-8"
+                className="group mt-8"
             >
-                <div className="relative w-full aspect-[4/3] sm:aspect-[2/1] md:aspect-[21/9] rounded-lg overflow-hidden">
+                <div className="relative w-full aspect-[4/3] sm:aspect-[2/1] md:aspect-[21/9] overflow-hidden rounded-2xl border border-border/60 shadow-xl shadow-primary/5">
                     <Image
-                        className="object-cover"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.025]"
                         fill
                         src="/Portfolio.png" 
                         alt="A photo of Gion Town, Kyoto I took on March 2024."

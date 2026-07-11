@@ -68,9 +68,9 @@ export default function ExperienceDetailPage() {
 
   if (!experience) {
     return (
-      <BaseContainer size="md" paddingX="md" paddingY="lg">
+      <BaseContainer size="md" paddingX="md" paddingY="lg" className="page-shell">
         <StackVertical gap="lg">
-          <div className="flex items-center justify-between">
+          <div className="page-toolbar">
             <DynamicBreadcrumb
               items={[
                 { href: '/', label: 'Home', emoji: '👾' },
@@ -101,9 +101,9 @@ export default function ExperienceDetailPage() {
   const relatedExperiences = experiences.filter((item) => item.slug !== experience.slug).slice(0, 4)
 
   return (
-    <BaseContainer size="md" paddingX="md" paddingY="lg">
+    <BaseContainer size="lg" paddingX="md" paddingY="lg" className="page-shell">
       <StackVertical gap="lg">
-        <div className="flex items-center justify-between">
+        <div className="page-toolbar">
           <DynamicBreadcrumb
             items={[
               { href: '/', label: 'Home', emoji: '👾' },
@@ -114,7 +114,7 @@ export default function ExperienceDetailPage() {
           <ThemeToggle />
         </div>
 
-        <section className="relative overflow-hidden rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 via-background/90 to-emerald-500/10 p-6 sm:p-8">
+        <section className="page-hero relative overflow-hidden p-6 sm:p-8">
           <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan-500/20 blur-3xl" />
           <div className="absolute -left-16 -bottom-16 h-40 w-40 rounded-full bg-emerald-500/20 blur-3xl" />
           <div className="relative flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -141,6 +141,9 @@ export default function ExperienceDetailPage() {
               </div>
             </div>
 
+            <div className="flex flex-wrap items-center gap-2">
+            {experience.companyUrl && <a href={experience.companyUrl} target="_blank" rel="noopener noreferrer" className="unstyled inline-flex items-center gap-2 rounded-lg border border-primary/35 bg-primary/10 px-3 py-2 text-sm font-semibold text-primary hover:bg-primary hover:text-primary-foreground"><ExternalLink className="h-4 w-4" /> Company</a>}
+            {experience.githubUrl && <a href={experience.githubUrl} target="_blank" rel="noopener noreferrer" className="unstyled inline-flex items-center gap-2 rounded-lg border border-border/60 bg-background/50 px-3 py-2 text-sm font-semibold text-foreground hover:bg-muted/50"><ExternalLink className="h-4 w-4" /> GitHub</a>}
             <Link
               href="/experience"
               className="inline-flex items-center gap-2 self-start rounded-lg border border-border/50 bg-background/50 px-3 py-2 text-sm hover:bg-background/70 transition-colors"
@@ -148,12 +151,13 @@ export default function ExperienceDetailPage() {
               <ChevronLeft className="h-4 w-4" />
               All Experience
             </Link>
+            </div>
           </div>
         </section>
 
         <section className="grid gap-6 xl:grid-cols-[0.95fr_1.25fr]">
           <div className="space-y-6">
-            <div className="rounded-2xl border border-border/40 bg-background/60 p-5">
+            <div className="surface-card rounded-2xl p-5 sm:p-6">
               <TextHeading as="h2" className="text-lg sm:text-xl">Highlights</TextHeading>
               <div className="mt-4 space-y-3">
                 {experience.description.map((line) => (
@@ -165,13 +169,13 @@ export default function ExperienceDetailPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border/40 bg-background/60 p-5">
+            <div className="surface-card rounded-2xl p-5 sm:p-6">
               <TextHeading as="h2" className="text-lg sm:text-xl">Technologies</TextHeading>
               <div className="mt-4 flex flex-wrap gap-2">
                 {experience.technologies.map((tech) => (
                   <span
                     key={tech}
-                    className="rounded-lg border border-cyan-500/20 bg-cyan-500/10 px-2.5 py-1 text-xs font-medium text-cyan-200"
+                    className="rounded-md border border-border/70 bg-muted/35 px-2.5 py-1.5 text-xs font-semibold text-muted-foreground"
                   >
                     {tech}
                   </span>
@@ -179,7 +183,7 @@ export default function ExperienceDetailPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-border/40 bg-background/60 p-5">
+            <div className="surface-card rounded-2xl p-5 sm:p-6">
               <TextHeading as="h2" className="text-lg sm:text-xl">About This Work</TextHeading>
               <div className="prose prose-sm dark:prose-invert mt-4 max-w-none text-muted-foreground">
                 {experience.content}
@@ -189,7 +193,7 @@ export default function ExperienceDetailPage() {
 
           <div className="space-y-4">
             {docs.length > 0 && (
-              <div className="rounded-2xl border border-cyan-500/20 bg-gradient-to-b from-cyan-500/10 to-background/70 p-4 sm:p-5">
+              <div className="surface-card rounded-2xl p-4 sm:p-6">
                 <div className="flex flex-wrap items-center justify-between gap-3">
                   <TextHeading as="h2" className="text-lg sm:text-xl">Document Preview</TextHeading>
                   {activeDoc && (
@@ -197,7 +201,7 @@ export default function ExperienceDetailPage() {
                       href={activeDoc.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-lg border border-cyan-400/35 bg-cyan-500/10 px-3 py-1.5 text-xs font-medium text-cyan-300 hover:bg-cyan-500/20 transition-colors"
+                      className="unstyled inline-flex items-center gap-1.5 rounded-lg border border-primary/35 bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
                     >
                       Open Original
                       <ExternalLink className="h-3.5 w-3.5" />
@@ -262,7 +266,7 @@ export default function ExperienceDetailPage() {
               </div>
             )}
 
-            <div className="rounded-2xl border border-border/40 bg-background/60 p-5">
+            <div className="surface-card rounded-2xl p-5 sm:p-6">
               <TextHeading as="h3" className="text-lg">Explore More</TextHeading>
               <div className="mt-3 flex flex-wrap gap-2">
                 {relatedExperiences.map((item) => (

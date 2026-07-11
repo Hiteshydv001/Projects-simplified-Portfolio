@@ -1,6 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Command } from 'cmdk'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
@@ -190,7 +191,7 @@ export function CommandPalette() {
       </button>
 
       {/* Command Palette Modal */}
-      <AnimatePresence>
+      {typeof document !== 'undefined' && createPortal(<AnimatePresence>
         {open && (
           <>
             {/* Backdrop */}
@@ -199,19 +200,19 @@ export function CommandPalette() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
-              className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+              className="fixed inset-0 z-[100] bg-slate-950/65 backdrop-blur-sm"
             />
 
             {/* Command Menu */}
             <div
-              className="fixed inset-0 z-50 flex items-center justify-center px-4 pointer-events-none"
+              className="fixed inset-0 z-[110] flex items-center justify-center px-4 pointer-events-none"
             >
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: -20 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.95, y: -20 }}
                 onClick={(e) => e.stopPropagation()}
-                className="w-full max-w-xl rounded-xl border border-border/40 bg-background/90 shadow-[0_20px_60px_rgba(0,0,0,0.3)] backdrop-blur-md overflow-hidden pointer-events-auto"
+                className="w-full max-w-2xl overflow-hidden rounded-2xl border border-primary/25 bg-background/95 shadow-[0_32px_90px_rgba(0,0,0,0.45)] backdrop-blur-xl pointer-events-auto"
               >
                 <Command
                   shouldFilter={false}
@@ -306,7 +307,7 @@ export function CommandPalette() {
             </div>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence>, document.body)}
     </>
   )
 }

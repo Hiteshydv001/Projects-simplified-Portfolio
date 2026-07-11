@@ -40,7 +40,8 @@ export function VisitorCounter() {
       }
     }
 
-    fetchVisitorData()
+    const timer = window.setTimeout(fetchVisitorData, 2000)
+    return () => window.clearTimeout(timer)
   }, [])
 
   if (loading) {

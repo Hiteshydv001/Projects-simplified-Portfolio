@@ -34,8 +34,8 @@ export default function ProjectsPage() {
     const displayFilters = projectFilters.filter(f => f.value !== 'featured')
 
     return (
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 md:px-8 py-8 sm:py-10 md:py-14 bg-transparent">
-            <div className="flex items-center justify-between mb-8">
+        <div className="page-shell relative mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 md:px-8 md:py-14">
+            <div className="page-toolbar">
                 <DynamicBreadcrumb 
                     items={[
                         { href: '/', label: 'Home', emoji: '👾' },
@@ -46,11 +46,11 @@ export default function ProjectsPage() {
             </div>
 
             {/* Header Section */}
-                <div className="flex flex-col items-center text-center mb-14 space-y-6">
+                <div className="page-hero mb-10 flex flex-col items-center text-center space-y-5">
                     <motion.p
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="text-xs uppercase tracking-[0.3em] text-muted-foreground"
+                        className="page-eyebrow"
                     >
                         Selected Work
                     </motion.p>
@@ -75,15 +75,11 @@ export default function ProjectsPage() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.15 }}
-                        className="flex flex-wrap justify-center gap-2 sm:gap-3"
+                        className="flex flex-wrap justify-center gap-2"
                     >
                         <button
                             onClick={() => setSelectedCategory('all')}
-                            className={`px-5 py-2 rounded-full border text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 ${
-                                selectedCategory === 'all'
-                                    ? 'bg-transparent text-foreground border-primary/40 shadow-none'
-                                    : 'bg-transparent text-muted-foreground border-border/50 hover:border-primary/30 hover:text-foreground'
-                            }`}
+                            className="filter-chip" data-active={selectedCategory === 'all'}
                         >
                             All Projects
                         </button>
@@ -91,11 +87,7 @@ export default function ProjectsPage() {
                             <button
                                 key={filter.value}
                                 onClick={() => setSelectedCategory(filter.value)}
-                                className={`px-5 py-2 rounded-full border text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 ${
-                                    selectedCategory === filter.value
-                                        ? 'bg-transparent text-foreground border-primary/40 shadow-none'
-                                        : 'bg-transparent text-muted-foreground border-border/50 hover:border-primary/30 hover:text-foreground'
-                                }`}
+                            className="filter-chip" data-active={selectedCategory === filter.value}
                             >
                                 {filter.label}
                             </button>
@@ -119,7 +111,7 @@ export default function ProjectsPage() {
                                     className="space-y-8"
                                 >
                                     <div className="flex flex-col items-center gap-3 text-center">
-                                        <div className="inline-flex items-center gap-3 rounded-full border border-border/50 bg-transparent px-4 py-2 text-sm text-foreground/90">
+                                        <div className="surface-card inline-flex items-center gap-3 rounded-full px-4 py-2 text-sm text-foreground/90">
                                             <span className="h-2.5 w-2.5 rounded-full bg-primary" />
                                             <span className="font-semibold text-foreground">
                                                 {categoryLabels[category]}

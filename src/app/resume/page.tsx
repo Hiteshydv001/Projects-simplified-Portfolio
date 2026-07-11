@@ -18,9 +18,9 @@ export default function ResumePage() {
   }, [])
 
   return (
-    <BaseContainer size="lg" paddingX="md" paddingY="lg">
+    <BaseContainer size="lg" paddingX="md" paddingY="lg" className="page-shell">
       <StackVertical gap="lg">
-        <div className="flex items-center justify-between">
+        <div className="page-toolbar">
           <DynamicBreadcrumb
             items={[
               { href: '/', label: 'Home', emoji: '👾' },
@@ -30,7 +30,8 @@ export default function ResumePage() {
           <ThemeToggle />
         </div>
 
-        <div className="text-center">
+        <div className="page-hero text-center">
+          <Text className="page-eyebrow mb-3">Professional profile</Text>
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -40,8 +41,8 @@ export default function ResumePage() {
               Resume
             </TextHeading>
           </motion.div>
-          <Text variant="muted" className="mt-3">
-            Quick view below. Download anytime.
+          <Text variant="muted" className="mx-auto mt-3 max-w-xl">
+            A concise overview of my AI, machine learning, and full-stack engineering work. Preview it here or keep a copy for later.
           </Text>
         </div>
 
@@ -49,7 +50,7 @@ export default function ResumePage() {
           <a
             href={resumeDownloadUrl}
             download
-            className="inline-flex items-center gap-2 rounded-full border border-primary/40 px-5 py-2 text-sm font-semibold text-foreground transition-colors hover:border-primary hover:text-primary"
+            className="unstyled inline-flex items-center gap-2 rounded-xl border border-primary/35 bg-primary/10 px-5 py-2.5 text-sm font-semibold text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
           >
             Download PDF
           </a>
@@ -59,7 +60,7 @@ export default function ResumePage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4 }}
-          className="rounded-2xl border border-border/30 bg-background/60 shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden"
+          className="surface-card overflow-hidden rounded-2xl"
         >
           <div className="flex items-center justify-between px-5 py-3 border-b border-border/20 bg-muted/20">
             <div className="flex items-center gap-2">

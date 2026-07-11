@@ -42,8 +42,8 @@ export default function ArticlesPage() {
   }, [])
 
   return (
-    <BaseContainer size="lg" paddingX="md" paddingY="lg">
-      <div className="flex items-center justify-between mb-8">
+    <BaseContainer size="lg" paddingX="md" paddingY="lg" className="page-shell">
+      <div className="page-toolbar">
         <DynamicBreadcrumb 
           items={[
             { href: '/', label: 'Home', emoji: '👾' },
@@ -56,7 +56,7 @@ export default function ArticlesPage() {
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-12"
+        className="page-hero mb-10"
       >
         <TextHeading as="h1" className="text-4xl md:text-5xl font-bold mb-4">
           Articles
@@ -87,7 +87,7 @@ export default function ArticlesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 whileHover={{ scale: 1.01 }}
-                className="relative overflow-hidden rounded-lg border border-border/40 bg-transparent p-6 hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300"
+                className="surface-card relative overflow-hidden rounded-2xl p-6"
               >
                 <div className="flex items-start gap-4">
                   <div className="text-3xl">{article.emoji}</div>

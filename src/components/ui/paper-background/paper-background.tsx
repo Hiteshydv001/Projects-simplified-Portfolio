@@ -7,13 +7,13 @@ export function PaperBackground({ className }: { className?: string }) {
   return (
     <div 
       className={cn(
-        "fixed inset-0 -z-[1] opacity-60 dark:opacity-40 pointer-events-none select-none",
+        "fixed inset-0 -z-[1] opacity-35 dark:opacity-25 pointer-events-none select-none",
         className
       )}
     >
       {/* Light mode texture */}
       <div 
-        className="absolute inset-0 bg-[url('/textures/paper-light.png')] bg-repeat dark:hidden mix-blend-multiply"
+        className="absolute inset-0 bg-[url('/textures/paper-light.png')] bg-repeat dark:hidden"
         style={{
           backgroundSize: '500px 500px',
         }}
@@ -21,7 +21,7 @@ export function PaperBackground({ className }: { className?: string }) {
       
       {/* Dark mode texture */}
       <div 
-        className="absolute inset-0 hidden dark:block bg-[url('/textures/paper-dark.png')] bg-repeat mix-blend-soft-light"
+        className="absolute inset-0 hidden dark:block bg-[url('/textures/paper-dark.png')] bg-repeat"
         style={{
           backgroundSize: '500px 500px',
         }}

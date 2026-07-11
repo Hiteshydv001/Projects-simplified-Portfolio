@@ -41,6 +41,7 @@ export default function Pictionary() {
   const [width, setWidth] = useState(5)
   const [opacity, setOpacity] = useState(1)
   const [strokes, setStrokes] = useState<Stroke[]>([])
+  const strokesRef = useRef<Stroke[]>([])
   const currentStrokeRef = useRef<Point[]>([])
   const lastPointRef = useRef<Point | null>(null)
   const dprRef = useRef(1)
@@ -53,6 +54,7 @@ export default function Pictionary() {
   }, [])
 
   useEffect(() => {
+    strokesRef.current = strokes
     if (isClient && canvasRef.current) {
       renderCanvas()
     }
@@ -76,8 +78,9 @@ export default function Pictionary() {
     }
 
     resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
-    return () => window.removeEventListener('resize', resizeCanvas)
+    const resizeObserver = new ResizeObserver(resizeCanvas)
+    resizeObserver.observe(canvas)
+    return () => resizeObserver.disconnect()
   }, [isClient])
 
   const renderCanvas = (activeStroke?: Stroke) => {
@@ -92,7 +95,7 @@ export default function Pictionary() {
     ctx.clearRect(0, 0, rect.width, rect.height)
     ctx.globalAlpha = 1
 
-    const allStrokes = activeStroke ? [...strokes, activeStroke] : strokes
+    const allStrokes = activeStroke ? [...strokesRef.current, activeStroke] : strokesRef.current
     allStrokes.forEach(stroke => {
       ctx.beginPath()
       ctx.strokeStyle = stroke.color
@@ -154,9 +157,7 @@ export default function Pictionary() {
   }
 
   const getPos = (e: React.PointerEvent<HTMLCanvasElement>): Point => {
-    const canvas = canvasRef.current
-    if (!canvas) return { x: 0, y: 0 }
-    const rect = canvas.getBoundingClientRect()
+    const rect = e.currentTarget.getBoundingClientRect()
 
     const { clientX, clientY } = e
 
@@ -167,8 +168,20 @@ export default function Pictionary() {
   }
 
   const clearCanvas = () => {
+    currentStrokeRef.current = []
+    strokesRef.current = []
+    lastPointRef.current = null
+    setIsDrawing(false)
     setStrokes([])
     setAiResult(null)
+    const canvas = canvasRef.current
+    const ctx = canvas?.getContext('2d')
+    if (canvas && ctx) {
+      const rect = canvas.getBoundingClientRect()
+      const dpr = dprRef.current || 1
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      ctx.clearRect(0, 0, rect.width, rect.height)
+    }
   }
 
   const undo = () => {
@@ -219,12 +232,12 @@ export default function Pictionary() {
   if (!isClient) return null
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[240px_1fr_240px] gap-6 w-full max-w-7xl mx-auto">
+    <div className="grid w-full grid-cols-1 gap-5 xl:grid-cols-[200px_minmax(0,1fr)] 2xl:grid-cols-[200px_minmax(0,1fr)_200px]">
       {/* Tools Sidebar */}
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="flex flex-col gap-6 p-5 rounded-2xl border border-border/20 bg-white/85 dark:bg-white/5 backdrop-blur-md h-fit shadow-sm"
+        className="surface-card flex h-fit flex-col gap-5 rounded-2xl p-5"
       >
         <div className="space-y-4">
           <Text variant="caption" className="text-accent font-semibold uppercase tracking-wider">Colors</Text>
@@ -284,9 +297,9 @@ export default function Pictionary() {
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative flex flex-col gap-4"
+        className="relative flex min-w-0 flex-col gap-4"
       >
-        <div className="relative w-full min-h-[280px] sm:min-h-[320px] lg:min-h-[400px] aspect-[16/10] rounded-2xl border border-border/20 bg-white/85 dark:bg-black/25 backdrop-blur-sm overflow-hidden shadow-2xl group p-3">
+        <div className="group relative aspect-[16/10] min-h-[280px] w-full overflow-hidden rounded-2xl border border-border/20 bg-white/85 p-3 shadow-2xl backdrop-blur-sm sm:min-h-[320px]">
           <div className="relative w-full h-full rounded-xl border border-border/10 bg-white dark:bg-white shadow-inner">
             <canvas
               ref={canvasRef}
@@ -330,7 +343,7 @@ export default function Pictionary() {
       <motion.div 
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="flex flex-col gap-6 p-5 rounded-2xl border border-border/20 bg-white/85 dark:bg-white/5 backdrop-blur-md h-fit min-h-[400px] shadow-sm"
+        className="surface-card flex min-h-[260px] flex-col gap-5 rounded-2xl p-5 xl:col-span-2 2xl:col-auto 2xl:min-h-[400px]"
       >
         <div className="flex items-center justify-between gap-3 border-b border-border/10 pb-4">
           <TextHeading as="h3" weight="bold">AI Guesses</TextHeading>
@@ -358,17 +371,17 @@ export default function Pictionary() {
 
               <div className="space-y-4">
                 <Text variant="caption" className="text-accent uppercase font-bold text-[10px] tracking-widest">Top Guesses</Text>
-                <div className="space-y-2">
+                <div className="max-h-[360px] space-y-2 overflow-y-auto pr-1">
                   {aiResult.guesses.map((guess, i) => (
                     <motion.div
                       initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.1 }}
                       key={i}
-                      className="p-3 rounded-xl bg-white/70 dark:bg-white/10 border border-border/10 hover:bg-accent/10 hover:border-accent/30 transition-all group"
+                      className="group rounded-xl border border-border/10 bg-white/70 p-3 transition-all hover:border-accent/30 hover:bg-accent/10 dark:bg-white/10"
                     >
                       <div className="flex items-center justify-between">
-                        <Text className="font-semibold text-sm group-hover:text-accent transition-colors">
+                        <Text className="line-clamp-3 pr-2 text-sm font-semibold leading-relaxed group-hover:text-accent transition-colors">
                           {guess}
                         </Text>
                         <span className="text-[10px] bg-accent/20 text-accent px-2 py-1 rounded-full uppercase font-bold">

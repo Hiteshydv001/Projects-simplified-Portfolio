@@ -1,9 +1,9 @@
 'use client'
 
 import { useState, useEffect } from "react"
+import dynamic from 'next/dynamic'
 import { motion, AnimatePresence } from "framer-motion"
 import { Sparkles, X, CircuitBoard, MessageCircle } from "lucide-react"
-import { ChatWindow } from "./chat-window"
 import {
   Dialog,
   DialogContent,
@@ -11,6 +11,8 @@ import {
   DialogTitle,
 } from "@/components/ui/primitives/dialog"
 import { Button } from "@/components/ui/primitives/button"
+
+const ChatWindow = dynamic(() => import('./chat-window').then(module => module.ChatWindow), { ssr: false })
 
 export function AssistantWidget() {
   const [open, setOpen] = useState(false)
@@ -26,7 +28,7 @@ export function AssistantWidget() {
   }, [])
 
   return (
-    <div className="fixed bottom-6 right-20 z-50">
+    <div className="fixed bottom-6 right-6 z-50">
       {/* Hint Message */}
       <AnimatePresence>
         {showHint && !open && (
@@ -54,13 +56,13 @@ export function AssistantWidget() {
       </AnimatePresence>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="flex flex-col h-[85vh] max-h-[675px] sm:max-w-[440px] p-0 gap-0">
-          <DialogHeader className="shrink-0 px-6 py-4 border-b border-slate-200 dark:border-slate-800">
+        <DialogContent className="surface-card flex h-[78vh] max-h-[680px] flex-col gap-0 overflow-hidden rounded-2xl border-primary/25 p-0 sm:max-w-[480px]">
+          <DialogHeader className="shrink-0 border-b border-border/60 bg-muted/20 px-5 py-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="relative flex items-center justify-center w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/20">
-                  <CircuitBoard className="w-5 h-5 text-blue-500 dark:text-blue-400" />
-                  <Sparkles className="absolute -top-1 -right-1 w-3 h-3 text-blue-400 dark:text-blue-300" />
+                <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
+                  <CircuitBoard className="h-5 w-5 text-primary" />
+                  <Sparkles className="absolute -right-1 -top-1 h-3 w-3 text-primary" />
                 </div>
                 <DialogTitle className="text-lg font-semibold">Portfolio Assistant</DialogTitle>
               </div>
@@ -79,7 +81,7 @@ export function AssistantWidget() {
           <Button
             variant="default"
             size="icon"
-            className="w-14 h-14 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg hover:shadow-blue-500/25 transition-shadow"
+            className="h-14 w-14 rounded-full bg-primary shadow-lg shadow-primary/30 transition-shadow hover:shadow-primary/50"
             onClick={() => {
               setOpen(true)
               setShowHint(false)

@@ -16,9 +16,9 @@ export default function ExperiencePage() {
   }, [])
 
   return (
-    <BaseContainer size="md" paddingX="md" paddingY="lg">
+    <BaseContainer size="md" paddingX="md" paddingY="lg" className="page-shell">
       <StackVertical gap="lg">
-        <div className="flex items-center justify-between">
+        <div className="page-toolbar">
           <DynamicBreadcrumb
             items={[
               { href: '/', label: 'Home', emoji: '👾' },
@@ -28,7 +28,7 @@ export default function ExperiencePage() {
           <ThemeToggle />
         </div>
 
-        <div className="space-y-2">
+        <div className="page-hero space-y-2">
           <TextHeading as="h1" className="text-3xl sm:text-4xl font-bold">
             Experience
           </TextHeading>

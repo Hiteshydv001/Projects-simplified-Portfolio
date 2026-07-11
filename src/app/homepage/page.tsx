@@ -20,16 +20,16 @@ import { CertificatePreview } from "@/components/blocks/homepage/CertificatePrev
 export default function Homepage() {
   return (
     <>
-      <BaseContainer size="md" paddingX="md" paddingY="lg">
-        <div className="mb-8 flex items-center justify-between gap-3 lg:hidden">
+      <BaseContainer size="md" paddingX="md" paddingY="lg" className="relative">
+        <div className="mb-10 flex items-center justify-between gap-3 lg:hidden">
           <Navbar />
           <div className="flex items-center justify-end gap-2">
             <ThemeToggle />
           </div>
         </div>
 
-        <div className="mb-8 hidden lg:flex items-center justify-between gap-4 min-h-12">
-          <div className="flex-1 flex justify-center">
+        <div className="surface-card mb-10 hidden min-h-12 items-center justify-between gap-3 rounded-2xl px-3 py-2 lg:flex">
+          <div className="min-w-0 flex-1 flex justify-center">
             <Navbar />
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">

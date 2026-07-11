@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 import TextHeading from '@/components/ui/text-heading/text-heading'
 import Text from '@/components/ui/text/text'
 import { useTheme } from 'next-themes'
-import { memo } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 
 const GitHubCalendar = dynamic(
   () => import('react-github-calendar').then((mod) => mod.GitHubCalendar),
@@ -23,6 +23,21 @@ const GitHubCalendar = dynamic(
 const GitHubActivity = () => {
   const { theme } = useTheme()
   const username = 'Hiteshydv001'
+  const [shouldLoadCalendar, setShouldLoadCalendar] = useState(false)
+  const sectionRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const node = sectionRef.current
+    if (!node) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setShouldLoadCalendar(true)
+        observer.disconnect()
+      }
+    }, { rootMargin: '300px' })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
 
   // Theme-aware colors to match site palette
   const themeColors = {
@@ -31,7 +46,7 @@ const GitHubActivity = () => {
   }
 
   return (
-    <div className="py-8">
+    <div ref={sectionRef} className="py-8">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between mb-6">
         <div className="space-y-1">
           <Text variant="caption" className="text-accent font-medium tracking-[0.24em] uppercase mb-1">
@@ -80,7 +95,7 @@ const GitHubActivity = () => {
         </div>
 
         <div className="relative w-full overflow-x-auto scrollbar-hide py-2 px-1 sm:px-0 translate-x-1 sm:translate-x-0">
-          <GitHubCalendar
+          {shouldLoadCalendar ? <GitHubCalendar
             username={username}
             blockSize={11}
             blockMargin={4}
@@ -91,7 +106,7 @@ const GitHubActivity = () => {
                 color: theme === 'dark' ? '#f8fafc' : '#0f172a',
                 margin: '0 auto'
             }}
-          />
+          /> : <div className="h-[120px] w-full animate-pulse rounded-xl bg-muted/30" />}
         </div>
       </motion.div>
       

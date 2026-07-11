@@ -73,7 +73,7 @@ export function ExperienceSection({ showViewAllButton = true }: ExperienceSectio
             <AccordionItem
               key={exp.slug}
               value={exp.slug}
-              className="rounded-2xl border border-border/40 bg-transparent px-4 sm:px-6"
+              className="surface-card rounded-2xl px-4 sm:px-6"
             >
               <AccordionTrigger className="py-5 no-underline hover:no-underline">
                 <div className="flex w-full flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

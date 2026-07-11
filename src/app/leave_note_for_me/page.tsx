@@ -12,9 +12,9 @@ import NoteWall from "@/components/blocks/note-wall/note-wall"
 
 export default function LeaveNoteForMe() {
     return (
-        <BaseContainer size="lg" paddingX="md" paddingY="lg">
+        <BaseContainer size="lg" paddingX="md" paddingY="lg" className="page-shell">
             <StackVertical gap="md">
-                <div className="flex items-center justify-between">
+                <div className="page-toolbar">
                     <DynamicBreadcrumb 
                         items={[
                             { href: '/', label: 'Home', emoji: '👾' },
@@ -24,11 +24,11 @@ export default function LeaveNoteForMe() {
                     <ThemeToggle />
                 </div>
 
-                <div>
+                <div className="page-hero">
                     <TextHeading as="h1" weight="bold">
                         Leave a Note
                     </TextHeading>
-                    <Text variant="muted" className="mb-8">
+                    <Text variant="muted" className="max-w-2xl">
                         Drop a message, share your thoughts, or just say hi! Your notes will appear on the wall below.
                     </Text>
                 </div>

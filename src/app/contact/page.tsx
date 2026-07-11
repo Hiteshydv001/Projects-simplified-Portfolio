@@ -60,8 +60,8 @@ export default function ContactPage() {
     }
 
     return (
-        <BaseContainer size="md" paddingY="lg" className="min-h-screen">
-            <div className="flex items-center justify-between mb-8">
+        <BaseContainer size="md" paddingY="lg" className="page-shell min-h-screen">
+            <div className="page-toolbar">
                 <DynamicBreadcrumb 
                     items={[
                         { href: '/', label: 'Home', emoji: '👾' },
@@ -75,7 +75,7 @@ export default function ContactPage() {
                 <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center space-y-4"
+                    className="page-hero text-center space-y-4"
                 >
                     <TextHeading as="h1" className="text-4xl md:text-5xl font-bold">Contact</TextHeading>
                     <Text variant="muted">Get in touch with me. I will get back to you as soon as possible.</Text>
@@ -87,7 +87,7 @@ export default function ContactPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="space-y-5"
+                    className="surface-card space-y-5 rounded-2xl p-5 sm:p-7"
                 >
                     <div className="space-y-1">
                         <TextHeading as="h2" weight="bold">Send me a message</TextHeading>
@@ -104,7 +104,7 @@ export default function ContactPage() {
                                     placeholder="Your full name"
                                     value={formData.name}
                                     onChange={e => setFormData({ ...formData, name: e.target.value })}
-                                    className="w-full py-2.5 px-3.5 rounded-lg border border-border/20 bg-transparent focus:ring-2 focus:ring-accent/40 focus:border-transparent outline-none transition-all duration-300 text-sm"
+                                    className="input-surface w-full px-3.5 py-2.5 text-sm outline-none transition-all duration-300"
                                 />
                             </div>
                             <div className="space-y-1.5">
@@ -115,7 +115,7 @@ export default function ContactPage() {
                                     placeholder="+91 xxxxx xxxxx"
                                     value={formData.phone}
                                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
-                                    className="w-full py-2.5 px-3.5 rounded-lg border border-border/20 bg-transparent focus:ring-2 focus:ring-accent/40 focus:border-transparent outline-none transition-all duration-300 text-sm"
+                                    className="input-surface w-full px-3.5 py-2.5 text-sm outline-none transition-all duration-300"
                                 />
                             </div>
                         </div>
@@ -128,7 +128,7 @@ export default function ContactPage() {
                                 placeholder="your.email@example.com"
                                 value={formData.email}
                                 onChange={e => setFormData({ ...formData, email: e.target.value })}
-                                className="w-full py-2.5 px-3.5 rounded-lg border border-border/20 bg-transparent focus:ring-2 focus:ring-accent/40 focus:border-transparent outline-none transition-all duration-300 text-sm"
+                                className="input-surface w-full px-3.5 py-2.5 text-sm outline-none transition-all duration-300"
                             />
                         </div>
 
@@ -140,7 +140,7 @@ export default function ContactPage() {
                                 placeholder="Tell me about your project or just say hello..."
                                 value={formData.message}
                                 onChange={e => setFormData({ ...formData, message: e.target.value })}
-                                className="w-full py-2.5 px-3.5 rounded-lg border border-border/20 bg-transparent focus:ring-2 focus:ring-accent/40 focus:border-transparent outline-none resize-none transition-all duration-300 text-sm"
+                                className="input-surface w-full resize-none px-3.5 py-2.5 text-sm outline-none transition-all duration-300"
                             />
                         </div>
 

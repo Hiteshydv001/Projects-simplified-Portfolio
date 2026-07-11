@@ -55,7 +55,7 @@ export function Patents() {
                 Patents
             </TextHeading>
             
-            <div className="grid gap-6">
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
                 {patents.map((patent) => (
                     <Link 
                         key={patent.id}
@@ -64,10 +64,10 @@ export function Patents() {
                     >
                         <motion.div
                             whileHover={{ scale: 1.01 }}
-                            className="flex flex-col sm:flex-row gap-6 overflow-hidden rounded-xl border border-border/20 bg-transparent backdrop-blur-[2px] transition-all duration-300 hover:bg-black/5 dark:hover:bg-white/5 group-hover:border-accent/30 group-hover:shadow-lg"
+                            className="surface-card flex h-full flex-col overflow-hidden rounded-2xl"
                         >
                             {/* Image Container */}
-                            <div className="relative w-full sm:w-48 h-48 sm:h-auto overflow-hidden bg-transparent">
+                            <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-border/60 bg-muted/30">
                                 <Image
                                     src={patent.image}
                                     alt={patent.imageAlt}
@@ -76,26 +76,26 @@ export function Patents() {
                                     sizes="(max-width: 640px) 100vw, 200px"
                                 />
                                 {/* Gradient Overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent sm:bg-none" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/45 to-transparent" />
                                 {/* Emoji Badge */}
-                                <div className="absolute top-4 right-4 w-10 h-10 rounded-full bg-background/40 border border-white/20 backdrop-blur-md flex items-center justify-center text-xl shadow-lg">
+                                <div className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-slate-950/50 text-xl shadow-lg backdrop-blur-md">
                                     {patent.emoji}
                                 </div>
                             </div>
 
                             {/* Content */}
-                            <div className="p-6 flex-1 flex flex-col bg-transparent">
+                            <div className="flex flex-1 flex-col p-5">
                                 <Text className="font-semibold mb-2 group-hover:text-accent transition-colors">
                                     {patent.title}
                                 </Text>
-                                <Text variant="caption" className="text-muted-foreground mb-4">
-                                    Status: {patent.status}
+                                <Text variant="caption" className="mb-4 text-primary">
+                                    {patent.status}
                                 </Text>
-                                <Text variant="caption" className="flex-1">
+                                <Text variant="caption" className="flex-1 leading-relaxed text-muted-foreground">
                                     {patent.shortDescription}
                                 </Text>
-                                <div className="mt-4 flex items-center text-accent">
-                                    <span className="text-sm font-medium">Read details</span>
+                                <div className="mt-5 flex items-center text-primary">
+                                    <span className="text-sm font-semibold">Explore invention</span>
                                     <svg 
                                         className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" 
                                         fill="none" 

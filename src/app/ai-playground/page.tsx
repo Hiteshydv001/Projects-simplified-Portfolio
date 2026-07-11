@@ -12,9 +12,9 @@ import Pictionary from '@/app/ai-playground/_components/Pictionary';
 
 export default function AIPlaygroundPage() {
   return (
-    <BaseContainer size="lg" paddingX="md" paddingY="lg">
+    <BaseContainer size="lg" paddingX="md" paddingY="lg" className="page-shell">
       <StackVertical gap="md">
-        <div className="flex items-center justify-between">
+        <div className="page-toolbar">
           <DynamicBreadcrumb
             items={[
               { href: '/', label: 'Home', emoji: '👾' },
@@ -23,17 +23,17 @@ export default function AIPlaygroundPage() {
           />
           <ThemeToggle />
         </div>
-        <div>
+        <div className="page-hero">
           <TextHeading as="h1" weight="bold">
             🤖 AI Playground
           </TextHeading>
-          <Text variant="muted" className="mb-8">
+          <Text variant="muted" className="max-w-2xl">
             Explore how transformers process and understand text through interactive visualizations.
             Type any text and see attention patterns in action!
           </Text>
         </div>
         <Playground />
-        <div className="pt-4">
+        <div className="surface-card rounded-2xl p-5 sm:p-7">
           <TextHeading as="h2" weight="bold">
             Vision Pictionary
           </TextHeading>

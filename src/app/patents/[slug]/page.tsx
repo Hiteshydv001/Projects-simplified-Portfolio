@@ -179,13 +179,13 @@ export default function PatentPage() {
     }
 
     return (
-        <BaseContainer size="md" paddingX="md" paddingY="lg">
+        <BaseContainer size="lg" paddingX="md" paddingY="lg" className="page-shell">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <div className="flex items-center justify-between gap-4">
+                <div className="page-toolbar">
                     <DynamicBreadcrumb
                         items={[
                             { href: '/', label: 'Home', emoji: '👾' },
@@ -196,7 +196,7 @@ export default function PatentPage() {
                 </div>
 
                 <StackVertical gap="lg" className="mt-8">
-                    <div>
+                    <div className="page-hero">
                         <div className="flex items-center gap-4 mb-4">
                             <span className="text-4xl">{patent.emoji}</span>
                             <TextHeading as="h1" className="text-2xl sm:text-3xl md:text-4xl">
@@ -211,14 +211,14 @@ export default function PatentPage() {
 
                     <Ruler />
 
-                    <div>
+                    <div className="surface-card rounded-2xl p-6 sm:p-8">
                         <TextHeading as="h2" className="text-xl mb-4">Project Overview</TextHeading>
                         <Text>{patent.overview}</Text>
                     </div>
 
                     <Ruler />
 
-                    <div>
+                    <div className="surface-card rounded-2xl p-6 sm:p-8">
                         <TextHeading as="h2" className="text-xl mb-4">{patent.challenge.title}</TextHeading>
                         <Text>{patent.challenge.description}</Text>
                         <ul className="mt-4 space-y-2">
@@ -232,7 +232,7 @@ export default function PatentPage() {
 
                     <Ruler />
 
-                    <div>
+                    <div className="surface-card rounded-2xl p-6 sm:p-8">
                         <TextHeading as="h2" className="text-xl mb-4">{patent.solution.title}</TextHeading>
                         <Text>{patent.solution.description}</Text>
 
@@ -257,7 +257,7 @@ export default function PatentPage() {
 
                     <Ruler />
 
-                    <div>
+                    <div className="surface-card rounded-2xl p-6 sm:p-8">
                         <TextHeading as="h2" className="text-xl mb-4">{patent.solution.techStack.title}</TextHeading>
                         <Text className="font-semibold">Hardware</Text>
                         <Text className="mt-2 mb-4">{patent.solution.techStack.hardware}</Text>

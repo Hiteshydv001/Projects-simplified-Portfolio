@@ -74,13 +74,13 @@ export function CertificateDetail({ slug }: CertificateDetailProps) {
   const activeImage = galleryImages[activeImageIndex]
 
   return (
-    <BaseContainer size="md" paddingX="md" paddingY="lg">
+    <BaseContainer size="md" paddingX="md" paddingY="lg" className="page-shell">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex items-center justify-between">
+        <div className="page-toolbar">
           <DynamicBreadcrumb
             items={[
               { href: '/', label: 'Home', emoji: '👾' },
@@ -93,7 +93,7 @@ export function CertificateDetail({ slug }: CertificateDetailProps) {
 
         <StackVertical gap="lg" className="mt-8">
           {/* Header */}
-          <div>
+          <div className="page-hero">
             <Text variant="caption" className="text-muted-foreground mb-2 text-xs uppercase tracking-wider">
               {isTechnical ? (certificate as any).category : 'Volunteering'}
               {isExpired && ' · Expired'}
@@ -118,8 +118,8 @@ export function CertificateDetail({ slug }: CertificateDetailProps) {
           <Ruler />
 
           {/* Certificate Gallery */}
-          <div className="space-y-4">
-            <div className="relative w-full max-w-xl rounded-xl overflow-hidden border border-border/20">
+          <div className="surface-card space-y-4 rounded-2xl p-4 sm:p-6">
+            <div className="relative w-full overflow-hidden rounded-xl border border-border/60 bg-white/80 dark:bg-slate-950/40">
               <Image
                 src={activeImage.src}
                 alt={activeImage.alt}

@@ -22,7 +22,7 @@ export function Projects() {
                 Featured Projects
             </TextHeading>
 
-            <div className="grid gap-6">
+            <div className="grid gap-5">
                 {featuredProjects.map((project) => {
                     const projectSlug = project.title.toLowerCase().replace(/\s+/g, '-');
                     const primaryImage = project.images?.[0]
@@ -38,10 +38,10 @@ export function Projects() {
                         >
                             <motion.div
                                 whileHover={{ scale: 1.01 }}
-                                className="flex flex-col sm:flex-row gap-6 overflow-hidden rounded-lg border border-border hover:border-accent/50 transition-colors bg-transparent"
+                                className="surface-card flex flex-col gap-5 overflow-hidden rounded-2xl sm:flex-row"
                             >
                                 {/* Image Container */}
-                                <div className="relative w-full sm:w-48 h-48 sm:h-auto overflow-hidden bg-transparent">
+                                <div className="relative h-48 w-full overflow-hidden bg-muted/30 sm:h-auto sm:w-52">
                                     {primaryImage && !imageFailed ? (
                                         <Image
                                             src={primaryImage.src}
@@ -68,7 +68,7 @@ export function Projects() {
                                 </div>
 
                                 {/* Content */}
-                                <div className="p-6 flex-1 flex flex-col bg-transparent">
+                                <div className="flex flex-1 flex-col p-5 sm:p-6">
                                     <Text className="font-semibold mb-2 group-hover:text-accent transition-colors">
                                         {project.title}
                                     </Text>
@@ -106,7 +106,7 @@ export function Projects() {
             <div className="mt-8 text-center">
                 <Link
                     href="/projects"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-accent/50 hover:bg-accent text-accent-foreground transition-colors text-sm font-medium hover:shadow-sm"
+                    className="inline-flex items-center gap-2 rounded-xl border border-accent/30 bg-accent/15 px-4 py-2 text-sm font-medium text-accent hover:bg-accent hover:text-accent-foreground hover:shadow-sm transition-all"
                 >
                     Show More Projects
                     <svg

@@ -67,14 +67,14 @@ export default function NoteForm() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ type: "spring", stiffness: 500, damping: 30 }}
       onSubmit={handleSubmit}
-      className="p-5 bg-transparent backdrop-blur-md rounded-2xl border border-border/40 hover:border-accent/40 shadow-sm transition-all duration-300"
+      className="surface-card rounded-2xl p-5 sm:p-6"
     >
       <div className="mb-4">
         <textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Leave a note..."
-          className="w-full p-3 rounded-xl border border-border/20 bg-transparent focus:ring-2 focus:ring-accent/40 focus:border-transparent resize-none transition-all duration-300"
+          className="input-surface w-full resize-none p-3 transition-all duration-300"
           required
           rows={3}
         />
@@ -86,14 +86,14 @@ export default function NoteForm() {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name (optional)"
-          className="p-2.5 rounded-xl border border-border/20 bg-transparent focus:ring-2 focus:ring-accent/40 focus:border-transparent outline-none transition-all"
+          className="input-surface p-2.5 outline-none transition-all"
         />
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Your email (optional)"
-          className="p-2.5 rounded-xl border border-border/20 bg-transparent focus:ring-2 focus:ring-accent/40 focus:border-transparent outline-none transition-all"
+          className="input-surface p-2.5 outline-none transition-all"
         />
       </div>
 

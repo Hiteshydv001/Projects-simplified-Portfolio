@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 
 export default function CertificatesPage() {
   return (
-    <BaseContainer size="md" paddingX="md" paddingY="lg">
-      <div className="flex items-center justify-between mb-8">
+    <BaseContainer size="md" paddingX="md" paddingY="lg" className="page-shell">
+      <div className="page-toolbar">
         <DynamicBreadcrumb
           items={[
             { href: '/', label: 'Home', emoji: '👾' },
