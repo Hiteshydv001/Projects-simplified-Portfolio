@@ -15,6 +15,9 @@
 
 # next.js
 /.next/
+/.next-studio/
+/.next-production/
+/.next-performance/
 /out/
 
 # production
@@ -43,3 +46,4 @@ next-env.d.ts
 .vscode
 
 BlogPostContent.tsx
+!.env.example

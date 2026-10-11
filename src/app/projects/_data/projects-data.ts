@@ -1,4 +1,4 @@
-import { Project, ProjectCategory } from "../_types/project-types";
+import { Project } from "../_types/project-types";
 
 export const majorProjects: Project[] = [
     {
@@ -480,7 +480,7 @@ export const majorProjects: Project[] = [
         challenges: ["Data processing"],
         learnings: ["RAG architecture"],
         futureWork: ["Enhance retrieval accuracy"],
-        images: [{ src: "/placeholder.png", alt: "100-GAJ-RAG" }]
+        images: []
     },
     {
         title: "100GAJ-Chatbot",
@@ -497,7 +497,7 @@ export const majorProjects: Project[] = [
         challenges: ["Handling real-time queries", "Database integration"],
         learnings: ["LLM agent development", "Streaming API implementation"],
         futureWork: ["Add more property filters", "Improve response time"],
-        images: [{ src: "/placeholder.png", alt: "100GAJ-Chatbot" }]
+        images: []
     },
     {
         title: "AAE_french_version",
@@ -513,7 +513,7 @@ export const majorProjects: Project[] = [
         challenges: ["Localization nuances"],
         learnings: ["Internationalization"],
         futureWork: ["Add more languages"],
-        images: [{ src: "/placeholder.png", alt: "AAE_french_version" }]
+        images: []
     },
     {
         title: "ace-iac-day-zero",
@@ -529,7 +529,7 @@ export const majorProjects: Project[] = [
         challenges: ["Multi-cloud networking"],
         learnings: ["Terraform advanced usage", "Aviatrix platform"],
         futureWork: ["Add more cloud providers"],
-        images: [{ src: "/placeholder.png", alt: "ace-iac-day-zero" }]
+        images: []
     },
     {
         title: "AI-Meme-Generator",
@@ -545,7 +545,7 @@ export const majorProjects: Project[] = [
         challenges: ["Exploration vs Exploitation", "Real-time processing"],
         learnings: ["Reinforcement Learning application", "Human-Computer Interaction"],
         futureWork: ["Improve joke database", "Enhance emotion detection"],
-        images: [{ src: "/placeholder.png", alt: "AI-Meme-Generator" }]
+        images: []
     },
     {
         title: "AI-ML-Portfolio",
@@ -562,7 +562,7 @@ export const majorProjects: Project[] = [
         challenges: ["Real-time AI interaction", "Animation performance"],
         learnings: ["Vercel AI SDK", "Advanced Next.js patterns"],
         futureWork: ["Add more AI games", "Expand knowledge base"],
-        images: [{ src: "/placeholder.png", alt: "AI-ML-Portfolio" }]
+        images: []
     },
     {
         title: "AI-Waifu",
@@ -578,7 +578,7 @@ export const majorProjects: Project[] = [
         challenges: ["Latency reduction", "Voice cloning quality"],
         learnings: ["Voice AI integration", "3D model interaction"],
         futureWork: ["Improve avatar animation", "Add more personalities"],
-        images: [{ src: "/placeholder.png", alt: "AI-Waifu" }]
+        images: []
     },
     {
         title: "AlgoVisualizer",
@@ -595,7 +595,7 @@ export const majorProjects: Project[] = [
         challenges: ["State management for animations", "Performance optimization"],
         learnings: ["React hooks for animation", "Algorithm complexity"],
         futureWork: ["Add more algorithms", "Mobile support"],
-        images: [{ src: "/placeholder.png", alt: "AlgoVisualizer" }]
+        images: []
     },
     {
         title: "Auto-Code-Fix",
@@ -611,7 +611,7 @@ export const majorProjects: Project[] = [
         challenges: ["Code parsing accuracy", "Security vulnerability detection"],
         learnings: ["Static code analysis", "LLM for code generation"],
         futureWork: ["Support more languages", "IDE plugin"],
-        images: [{ src: "/placeholder.png", alt: "Auto-Code-Fix" }]
+        images: []
     },
     {
         title: "Blindness-detection-codeclause",
@@ -627,7 +627,7 @@ export const majorProjects: Project[] = [
         challenges: ["Data imbalance", "Image preprocessing"],
         learnings: ["Medical image analysis", "Deep learning for healthcare"],
         futureWork: ["Improve accuracy", "Deploy as web app"],
-        images: [{ src: "/placeholder.png", alt: "Blindness-detection-codeclause" }]
+        images: []
     },
     {
         title: "Blockchain-chatbot",
@@ -643,7 +643,7 @@ export const majorProjects: Project[] = [
         challenges: ["Gas optimization", "Blockchain latency"],
         learnings: ["DApp development", "Smart contract security"],
         futureWork: ["Deploy to testnet", "Add frontend"],
-        images: [{ src: "/placeholder.png", alt: "Blockchain-chatbot" }]
+        images: []
     },
     {
         title: "Botanica",
@@ -659,7 +659,7 @@ export const majorProjects: Project[] = [
         challenges: ["Client-side data persistence"],
         learnings: ["DOM manipulation", "Browser APIs"],
         futureWork: ["Cloud sync", "Plant identification AI"],
-        images: [{ src: "/placeholder.png", alt: "Botanica" }]
+        images: []
     },
     {
         title: "chartopia-analytica",
@@ -676,7 +676,7 @@ export const majorProjects: Project[] = [
         challenges: ["Data binding"],
         learnings: ["Chart libraries"],
         futureWork: ["Add more chart types"],
-        images: [{ src: "/placeholder.png", alt: "chartopia-analytica" }]
+        images: []
     },
     {
         title: "CodeClock",
@@ -692,7 +692,7 @@ export const majorProjects: Project[] = [
         challenges: ["VS Code API limitations", "Data persistence"],
         learnings: ["Extension development", "Webviews in VS Code"],
         futureWork: ["Project-based tracking", "Cloud sync"],
-        images: [{ src: "/placeholder.png", alt: "CodeClock" }]
+        images: []
     },
     {
         title: "content-based-movie-recommender",
@@ -709,7 +709,7 @@ export const majorProjects: Project[] = [
         challenges: ["Feature extraction", "Scalability"],
         learnings: ["Recommendation systems", "NLP for content analysis"],
         futureWork: ["Hybrid filtering", "User accounts"],
-        images: [{ src: "/placeholder.png", alt: "content-based-movie-recommender" }]
+        images: []
     },
     {
         title: "crosstl",
@@ -725,7 +725,7 @@ export const majorProjects: Project[] = [
         challenges: ["Shader language differences", "Performance optimization"],
         learnings: ["Compiler design", "Graphics programming"],
         futureWork: ["Support more backends", "WebGPU support"],
-        images: [{ src: "/placeholder.png", alt: "crosstl" }]
+        images: []
     },
     {
         title: "CU-chat",
@@ -741,7 +741,7 @@ export const majorProjects: Project[] = [
         challenges: ["Data accuracy"],
         learnings: ["RAG for education"],
         futureWork: ["Expand knowledge base"],
-        images: [{ src: "/placeholder.png", alt: "CU-chat" }]
+        images: []
     },
     {
         title: "daytona",
@@ -757,7 +757,7 @@ export const majorProjects: Project[] = [
         challenges: ["Cross-platform compatibility"],
         learnings: ["Go programming", "Container orchestration"],
         futureWork: ["Add more providers"],
-        images: [{ src: "/placeholder.png", alt: "daytona" }]
+        images: []
     },
     {
         title: "DeepChartAI",
@@ -773,7 +773,7 @@ export const majorProjects: Project[] = [
         challenges: ["Data format handling", "LLM prompt engineering"],
         learnings: ["AI-driven visualization", "Full-stack integration"],
         futureWork: ["Support more data sources", "Advanced analytics"],
-        images: [{ src: "/placeholder.png", alt: "DeepChartAI" }]
+        images: []
     },
     {
         title: "DevDisplay",
@@ -790,7 +790,7 @@ export const majorProjects: Project[] = [
         challenges: ["Community engagement", "Platform scalability"],
         learnings: ["Community building", "Open source management"],
         futureWork: ["Add job board", "Mentorship program"],
-        images: [{ src: "/placeholder.png", alt: "DevDisplay" }]
+        images: []
     },
     {
         title: "Docs-Agentic-AI",
@@ -806,7 +806,7 @@ export const majorProjects: Project[] = [
         challenges: ["Streaming SSE", "Document parsing"],
         learnings: ["FastAPI streaming", "LangChain advanced usage"],
         futureWork: ["Add user auth", "Cloud deployment"],
-        images: [{ src: "/placeholder.png", alt: "Docs-Agentic-AI" }]
+        images: []
     },
     {
         title: "Elavia-OCR",
@@ -822,7 +822,7 @@ export const majorProjects: Project[] = [
         challenges: ["Handwriting recognition", "Format standardization"],
         learnings: ["OCR technologies", "Document parsing strategies"],
         futureWork: ["Add more OCR engines", "Mobile app"],
-        images: [{ src: "/placeholder.png", alt: "Elavia-OCR" }]
+        images: []
     },
     {
         title: "face-Recognition-system",
@@ -838,7 +838,7 @@ export const majorProjects: Project[] = [
         challenges: ["Real-time performance", "Security best practices"],
         learnings: ["Biometric authentication", "UI/UX design"],
         futureWork: ["Liveness detection", "Mobile integration"],
-        images: [{ src: "/placeholder.png", alt: "face-Recognition-system" }]
+        images: []
     },
     {
         title: "fastapi_mcp",
@@ -854,7 +854,7 @@ export const majorProjects: Project[] = [
         challenges: ["Protocol compliance", "Type inference"],
         learnings: ["Model Context Protocol", "Metaprogramming"],
         futureWork: ["Support more frameworks", "Add authentication"],
-        images: [{ src: "/placeholder.png", alt: "fastapi_mcp" }]
+        images: []
     },
     {
         title: "Financial-Analysis-ML",
@@ -871,7 +871,7 @@ export const majorProjects: Project[] = [
         challenges: ["Data accuracy", "Real-time processing"],
         learnings: ["Financial modeling", "Full-stack ML integration"],
         futureWork: ["Add more metrics", "Predictive modeling"],
-        images: [{ src: "/placeholder.png", alt: "Financial-Analysis-ML" }]
+        images: []
     },
     {
         title: "google-account-create",
@@ -887,7 +887,7 @@ export const majorProjects: Project[] = [
         challenges: ["Bot detection", "Dynamic elements"],
         learnings: ["Browser automation", "Anti-bot evasion"],
         futureWork: ["Support more browsers", "Headless mode"],
-        images: [{ src: "/placeholder.png", alt: "google-account-create" }]
+        images: []
     },
     {
         title: "Guard-AI",
@@ -904,7 +904,7 @@ export const majorProjects: Project[] = [
         challenges: ["Privacy concerns", "Real-time analysis"],
         learnings: ["Computer vision for security", "Ethical AI"],
         futureWork: ["Enhanced behavioral analysis", "Mobile support"],
-        images: [{ src: "/placeholder.png", alt: "Guard-AI" }]
+        images: []
     },
     {
         title: "bajaj_test",
@@ -916,7 +916,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["API Testing"],
         keyFeatures: ["Simple API validation", "Minimal setup"],
-        images: [{ src: "/placeholder.png", alt: "bajaj_test" }]
+        images: []
     },
     {
         title: "Hiteshydv001",
@@ -928,7 +928,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Profile README"],
         keyFeatures: ["Profile layout", "Badge and media assets"],
-        images: [{ src: "/placeholder.png", alt: "Hiteshydv001" }]
+        images: []
     },
     {
         title: "Hiteshydv002",
@@ -940,7 +940,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["GitHub Stats"],
         keyFeatures: ["Automated metrics", "Profile insights"],
-        images: [{ src: "/placeholder.png", alt: "Hiteshydv002" }]
+        images: []
     },
     {
         title: "Image-Generation-using-Stable-Diffusion-ComfyUI",
@@ -952,7 +952,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Stable Diffusion"],
         keyFeatures: ["Text to image", "Workflow automation"],
-        images: [{ src: "/placeholder.png", alt: "Image Generation using Stable Diffusion ComfyUI" }]
+        images: []
     },
     {
         title: "Image-to-pdf",
@@ -964,7 +964,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Image to PDF"],
         keyFeatures: ["Multi-image upload", "PDF export"],
-        images: [{ src: "/placeholder.png", alt: "Image-to-pdf" }]
+        images: []
     },
     {
         title: "Instagram-clone",
@@ -976,7 +976,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Static UI"],
         keyFeatures: ["Instagram layout", "Responsive styling"],
-        images: [{ src: "/placeholder.png", alt: "Instagram-clone" }]
+        images: []
     },
     {
         title: "iris_classification",
@@ -988,7 +988,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["ML Classification"],
         keyFeatures: ["Iris dataset", "Model evaluation"],
-        images: [{ src: "/placeholder.png", alt: "iris_classification" }]
+        images: []
     },
     {
         title: "Kidney-disease-detection",
@@ -1000,7 +1000,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Healthcare ML"],
         keyFeatures: ["Data preprocessing", "Disease prediction"],
-        images: [{ src: "/placeholder.png", alt: "Kidney-disease-detection" }]
+        images: []
     },
     {
         title: "legal-drafter-llm",
@@ -1012,7 +1012,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["RAG", "Document Generation"],
         keyFeatures: ["DOCX and PDF output", "RAG grounded drafts"],
-        images: [{ src: "/placeholder.png", alt: "legal-drafter-llm" }]
+        images: []
     },
     {
         title: "Manual-Design-Command-Center",
@@ -1024,7 +1024,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Design Toolkit"],
         keyFeatures: ["Quote poster builder", "Moodboard builder"],
-        images: [{ src: "/placeholder.png", alt: "Manual-Design-Command-Center" }]
+        images: []
     },
     {
         title: "Mask-detection-codeclause",
@@ -1036,7 +1036,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Computer Vision"],
         keyFeatures: ["Mask detection", "Dataset preprocessing"],
-        images: [{ src: "/placeholder.png", alt: "Mask-detection-codeclause" }]
+        images: []
     },
     {
         title: "MCP-email-fetch",
@@ -1048,7 +1048,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["MCP", "Email AI"],
         keyFeatures: ["Email summarization", "Vector search"],
-        images: [{ src: "/placeholder.png", alt: "MCP-email-fetch" }]
+        images: []
     },
     {
         title: "medical_chatbot",
@@ -1060,7 +1060,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Healthcare Chat"],
         keyFeatures: ["Medical Q and A", "Conversational flow"],
-        images: [{ src: "/placeholder.png", alt: "medical_chatbot" }]
+        images: []
     },
     {
         title: "Mowito-Robotics-Challenge",
@@ -1072,7 +1072,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Robotics"],
         keyFeatures: ["Rotation conversion", "FK visualization"],
-        images: [{ src: "/placeholder.png", alt: "Mowito-Robotics-Challenge" }]
+        images: []
     },
     {
         title: "Multi-Feature-AI-Assistant",
@@ -1084,7 +1084,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Multi-Tool AI"],
         keyFeatures: ["Q and A bot", "Text summarizer"],
-        images: [{ src: "/placeholder.png", alt: "Multi-Feature-AI-Assistant" }]
+        images: []
     },
     {
         title: "music_recommendation_system",
@@ -1096,7 +1096,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Recommendations"],
         keyFeatures: ["Song similarity", "Spotify metadata"],
-        images: [{ src: "/placeholder.png", alt: "music_recommendation_system" }]
+        images: []
     },
     {
         title: "My-OS",
@@ -1108,7 +1108,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Systems"],
         keyFeatures: ["OS fundamentals", "Low-level exploration"],
-        images: [{ src: "/placeholder.png", alt: "My-OS" }]
+        images: []
     },
     {
         title: "My-Portfolio",
@@ -1120,7 +1120,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Android"],
         keyFeatures: ["Portfolio screens", "Mobile UI"],
-        images: [{ src: "/placeholder.png", alt: "My-Portfolio" }]
+        images: []
     },
     {
         title: "my-sql-MCP",
@@ -1132,7 +1132,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["MCP", "Database Tools"],
         keyFeatures: ["Schema discovery", "Read-only queries"],
-        images: [{ src: "/placeholder.png", alt: "my-sql-MCP" }]
+        images: []
     },
     {
         title: "outlook_mail_fetch",
@@ -1144,7 +1144,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Automation"],
         keyFeatures: ["Email polling", "Call notifications"],
-        images: [{ src: "/placeholder.png", alt: "outlook_mail_fetch" }]
+        images: []
     },
     {
         title: "Personality-Prediction-System-via-CV-Analysis-codeclause",
@@ -1156,7 +1156,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["NLP"],
         keyFeatures: ["Resume parsing", "Trait prediction"],
-        images: [{ src: "/placeholder.png", alt: "Personality-Prediction-System-via-CV-Analysis-codeclause" }]
+        images: []
     },
     {
         title: "Pink_sweat",
@@ -1168,7 +1168,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Remote Proctoring"],
         keyFeatures: ["Monitoring workflow", "Assessment integrity"],
-        images: [{ src: "/placeholder.png", alt: "Pink_sweat" }]
+        images: []
     },
     {
         title: "portfolio-new-ui",
@@ -1180,7 +1180,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["UI Refresh"],
         keyFeatures: ["Chakra UI components", "Responsive layout"],
-        images: [{ src: "/placeholder.png", alt: "portfolio-new-ui" }]
+        images: []
     },
     {
         title: "Portfolio-UI",
@@ -1192,7 +1192,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Portfolio UI"],
         keyFeatures: ["Responsive layout", "UI sections"],
-        images: [{ src: "/placeholder.png", alt: "Portfolio-UI" }]
+        images: []
     },
     {
         title: "portfolio.hitesh.aiml",
@@ -1204,7 +1204,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Portfolio"],
         keyFeatures: ["Personal branding", "Web presence"],
-        images: [{ src: "/placeholder.png", alt: "portfolio.hitesh.aiml" }]
+        images: []
     },
     {
         title: "Price_predict_House",
@@ -1216,7 +1216,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Price Prediction"],
         keyFeatures: ["Feature engineering", "Model evaluation"],
-        images: [{ src: "/placeholder.png", alt: "Price_predict_House" }]
+        images: []
     },
     {
         title: "productive",
@@ -1228,7 +1228,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Utility"],
         keyFeatures: ["Lightweight tooling", "Simple setup"],
-        images: [{ src: "/placeholder.png", alt: "productive" }]
+        images: []
     },
     {
         title: "ProductizeTech-Assignment",
@@ -1240,7 +1240,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Computer Vision"],
         keyFeatures: ["Image alignment", "LLM document pipeline"],
-        images: [{ src: "/placeholder.png", alt: "ProductizeTech-Assignment" }]
+        images: []
     },
     {
         title: "Projects-simplified-Portfolio",
@@ -1252,7 +1252,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Portfolio"],
         keyFeatures: ["MDX content", "Responsive design"],
-        images: [{ src: "/placeholder.png", alt: "Projects-simplified-Portfolio" }]
+        images: []
     },
     {
         title: "Property-Prices",
@@ -1264,7 +1264,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Data Cleaning"],
         keyFeatures: ["Feature engineering", "CSV consolidation"],
-        images: [{ src: "/placeholder.png", alt: "Property-Prices" }]
+        images: []
     },
     {
         title: "qr-code-generator",
@@ -1276,7 +1276,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["QR Codes"],
         keyFeatures: ["QR generation", "Lightweight UI"],
-        images: [{ src: "/placeholder.png", alt: "qr-code-generator" }]
+        images: []
     },
     {
         title: "RAG_Youtube_extractor",
@@ -1288,7 +1288,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["RAG", "YouTube"],
         keyFeatures: ["Video extraction", "Contextual QA"],
-        images: [{ src: "/placeholder.png", alt: "RAG_Youtube_extractor" }]
+        images: []
     },
     {
         title: "rock_mine_prediction",
@@ -1300,7 +1300,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Binary Classification"],
         keyFeatures: ["Sonar dataset", "Streamlit demo"],
-        images: [{ src: "/placeholder.png", alt: "rock_mine_prediction" }]
+        images: []
     },
     {
         title: "sam2-refine-video-tracking",
@@ -1312,7 +1312,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Video Segmentation"],
         keyFeatures: ["Occlusion recovery", "Quality gating"],
-        images: [{ src: "/placeholder.png", alt: "sam2-refine-video-tracking" }]
+        images: []
     },
     {
         title: "Spam-Classifier-using-Machine-codeclause-learning",
@@ -1324,7 +1324,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["NLP"],
         keyFeatures: ["Text cleaning", "Spam detection"],
-        images: [{ src: "/placeholder.png", alt: "Spam-Classifier-using-Machine-codeclause-learning" }]
+        images: []
     },
     {
         title: "Stable-Diffusion-v1.5-VRAM-Estimator",
@@ -1336,7 +1336,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["GPU Estimation"],
         keyFeatures: ["VRAM calculator", "API endpoints"],
-        images: [{ src: "/placeholder.png", alt: "Stable-Diffusion-v1.5-VRAM-Estimator" }]
+        images: []
     },
     {
         title: "summarize",
@@ -1348,7 +1348,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Summarization"],
         keyFeatures: ["Web page summaries", "Simple usage"],
-        images: [{ src: "/placeholder.png", alt: "summarize" }]
+        images: []
     },
     {
         title: "Sweet-Shop-Management-System",
@@ -1360,7 +1360,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Full Stack"],
         keyFeatures: ["Inventory management", "Analytics dashboard"],
-        images: [{ src: "/placeholder.png", alt: "Sweet-Shop-Management-System" }]
+        images: []
     },
     {
         title: "Text-to-music-ai",
@@ -1372,7 +1372,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Music Generation"],
         keyFeatures: ["Text to audio", "Gradio UI"],
-        images: [{ src: "/placeholder.png", alt: "Text-to-music-ai" }]
+        images: []
     },
     {
         title: "think_blue_data",
@@ -1384,7 +1384,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Dataset Annotation"],
         keyFeatures: ["Building topology labels", "Passive feature annotation"],
-        images: [{ src: "/placeholder.png", alt: "think_blue_data" }]
+        images: []
     },
     {
         title: "Trading-Bot-Internship-Assignment",
@@ -1396,7 +1396,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Trading Dashboard"],
         keyFeatures: ["Live market data", "Strategy management"],
-        images: [{ src: "/placeholder.png", alt: "Trading-Bot-Internship-Assignment" }]
+        images: []
     },
     {
         title: "Tricolorify",
@@ -1408,7 +1408,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Image Processing"],
         keyFeatures: ["Profile overlay", "Catch-the-tricolor game"],
-        images: [{ src: "/placeholder.png", alt: "Tricolorify" }]
+        images: []
     },
     {
         title: "Waste-classification-model-cnn",
@@ -1420,7 +1420,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Sustainability"],
         keyFeatures: ["Image upload", "Real-time prediction"],
-        images: [{ src: "/placeholder.png", alt: "Waste-classification-model-cnn" }]
+        images: []
     },
     {
         title: "Weather-Trend-Forecasting",
@@ -1432,7 +1432,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Forecasting"],
         keyFeatures: ["Ensemble modeling", "Prediction API"],
-        images: [{ src: "/placeholder.png", alt: "Weather-Trend-Forecasting" }]
+        images: []
     },
     {
         title: "WebRTc-implement",
@@ -1444,7 +1444,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Realtime"],
         keyFeatures: ["WebRTC setup", "Next.js integration"],
-        images: [{ src: "/placeholder.png", alt: "WebRTc-implement" }]
+        images: []
     },
     {
         title: "Whatsapp-MCP",
@@ -1456,7 +1456,7 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["MCP"],
         keyFeatures: ["WhatsApp automation", "Tool exposure"],
-        images: [{ src: "/placeholder.png", alt: "Whatsapp-MCP" }]
+        images: []
     },
     {
         title: "wine-price-predict",
@@ -1468,6 +1468,6 @@ export const majorProjects: Project[] = [
         featured: false,
         highlights: ["Regression"],
         keyFeatures: ["Feature analysis", "Quality prediction"],
-        images: [{ src: "/placeholder.png", alt: "wine-price-predict" }]
+        images: []
     }
 ];

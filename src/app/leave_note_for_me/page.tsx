@@ -1,45 +1,10 @@
-'use client'
+import type { Metadata } from 'next'
+import { StudioHeading } from '@/components/studio/primitives'
+import { Reveal } from '@/components/studio/motion'
+import NoteForm from '@/components/blocks/note-wall/note-form'
+import NoteWall from '@/components/blocks/note-wall/note-wall'
 
-import BaseContainer from "@/components/layout/container/base-container"
-import { StackVertical } from "@/components/layout/layout-stack/layout-stack"
-import TextHeading from "@/components/ui/text-heading/text-heading"
-import { SectionFooter } from "@/components/layout/footer/SectionFooter"
-import Text from "@/components/ui/text/text"
-import { DynamicBreadcrumb } from "@/components/ui/primitives/breadcrumb"
-import { ThemeToggle } from "@/components/ui/theme/theme-toggle"
-import NoteForm from "@/components/blocks/note-wall/note-form"
-import NoteWall from "@/components/blocks/note-wall/note-wall"
-
+export const metadata: Metadata = { title: 'Notes', description: 'Leave a thought, a question, or a hello on Hitesh’s public note wall.' }
 export default function LeaveNoteForMe() {
-    return (
-        <BaseContainer size="lg" paddingX="md" paddingY="lg" className="page-shell">
-            <StackVertical gap="md">
-                <div className="page-toolbar">
-                    <DynamicBreadcrumb 
-                        items={[
-                            { href: '/', label: 'Home', emoji: '👾' },
-                            { label: 'Leave a Note' }
-                        ]}
-                    />
-                    <ThemeToggle />
-                </div>
-
-                <div className="page-hero">
-                    <TextHeading as="h1" weight="bold">
-                        Leave a Note
-                    </TextHeading>
-                    <Text variant="muted" className="max-w-2xl">
-                        Drop a message, share your thoughts, or just say hi! Your notes will appear on the wall below.
-                    </Text>
-                </div>
-
-                <div className="mb-12">
-                    <NoteForm />
-                </div>
-
-                <NoteWall />
-            </StackVertical>
-            <SectionFooter color="purple" showToTop={true} />
-        </BaseContainer>
-    )
+  return <div className="studio-page"><Reveal><StudioHeading note="a little corner for your thoughts">Notes</StudioHeading><p className="mb-10 max-w-xl">A thought, a question, or just hello. Your note will appear publicly here; your email stays private.</p></Reveal><Reveal className="mb-16"><NoteForm /></Reveal><NoteWall /></div>
 }

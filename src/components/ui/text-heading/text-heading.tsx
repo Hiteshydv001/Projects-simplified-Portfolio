@@ -11,9 +11,9 @@ interface TextHeadingProps {
 }
 
 const defaultSizes = {
-    h1: 'text-base sm:text-lg md:text-lg lg:text-xl',
-    h2: 'text-sm sm:text-base md:text-base lg:text-lg',
-    h3: 'text-xs sm:text-sm md:text-sm lg:text-base',
+    h1: 'text-2xl sm:text-3xl',
+    h2: 'text-lg sm:text-xl',
+    h3: 'text-base sm:text-lg',
     h4: 'text-[10px] sm:text-xs md:text-xs lg:text-sm',
     h5: 'text-[9px] sm:text-[10px] md:text-[10px] lg:text-xs',
     h6: 'text-[8px] sm:text-[9px] md:text-[9px] lg:text-[10px]'
@@ -46,7 +46,7 @@ export default function TextHeading({ children, className, as = 'h1', weight = '
                 defaultSizes[as], 
                 sansFont.className, 
                 fontWeights[weight], 
-                margin && defaultMargin[as],
+                margin || defaultMargin[as],
                 'text-foreground dark:text-white',
                 className
             )}

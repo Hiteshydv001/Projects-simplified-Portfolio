@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils/utils'
 interface BaseContainerProps {
     children: React.ReactNode;
     size?: 'sm' | 'md' | 'lg' | 'xl' | 'full';
-    paddingX?: 'none' | 'sm' | 'md' | 'lg';
+    paddingX?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
     paddingY?: 'none' | 'sm' | 'md' | 'lg' | 'xl';
     center?: boolean;
     className?: string;
@@ -18,6 +18,7 @@ const sizes = {
 }
 
 const paddingX = {
+    xl: 'px-5 sm:px-8 md:px-10',
     none: 'px-0',
     sm: 'px-2 sm:px-3 md:px-4',
     md: 'px-3 sm:px-4 md:px-6',
@@ -42,7 +43,7 @@ export default function BaseContainer({
 }: BaseContainerProps) {
     return (
         <div className={cn(
-            'mx-auto w-full',
+            'content-container mx-auto w-full',
             sizes[size],
             paddingX[px],
             paddingY[py],

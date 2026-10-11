@@ -20,7 +20,7 @@ const getNodeText = (node: React.ReactNode): string => {
         return node.map(getNodeText).join('')
     }
 
-    if (React.isValidElement(node)) {
+    if (React.isValidElement<{ children?: React.ReactNode }>(node)) {
         return getNodeText(node.props.children)
     }
 

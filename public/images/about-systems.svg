@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" viewBox="0 0 600 600">
+  <defs><pattern id="dots" width="25" height="25" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.2" fill="#15212d" opacity=".12"/></pattern></defs>
+  <rect width="600" height="600" fill="#f9edce"/>
+  <rect width="600" height="600" fill="url(#dots)"/>
+  <circle cx="300" cy="290" r="193" fill="none" stroke="#15212d" stroke-opacity=".13" stroke-width="2" stroke-dasharray="5 9"/>
+  <g fill="none" stroke="#15212d" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M130 177V287Q130 305 150 305H229M370 287H440Q460 287 460 266V185M301 368V418Q301 438 280 438H170M364 357 429 420"/>
+    <path d="m215 295 14 10-14 10M450 201l10-16 10 16M187 428l-17 10 17 10M409 419l20 1-1-20"/>
+  </g>
+  <g transform="translate(58 82) rotate(-6 72 50)">
+    <rect x="5" y="6" width="144" height="103" rx="14" fill="#15212d"/>
+    <rect width="144" height="103" rx="14" fill="#f78aad" stroke="#15212d" stroke-width="3"/>
+    <rect x="24" y="23" width="45" height="55" rx="4" fill="#fff8e9" stroke="#15212d" stroke-width="2"/>
+    <path d="M35 36H58M35 45H58M35 54H51M83 35H118M83 49H115M83 63H105" stroke="#15212d" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(390 79) rotate(7 72 50)">
+    <rect x="5" y="6" width="144" height="103" rx="14" fill="#15212d"/>
+    <rect width="144" height="103" rx="14" fill="#8edacb" stroke="#15212d" stroke-width="3"/>
+    <path d="M33 76V34M33 76H114M48 64l20-19 17 9 22-24" fill="none" stroke="#15212d" stroke-width="3"/>
+    <circle cx="48" cy="64" r="5" fill="#15212d"/><circle cx="68" cy="45" r="5" fill="#15212d"/><circle cx="85" cy="54" r="5" fill="#15212d"/><circle cx="107" cy="30" r="5" fill="#15212d"/>
+  </g>
+  <g transform="translate(226 220)">
+    <rect x="7" y="8" width="150" height="150" rx="28" fill="#a89c7d" opacity=".4"/>
+    <rect width="150" height="150" rx="28" fill="#15212d"/>
+    <g fill="none" stroke="#71d3ec" stroke-width="3"><path d="M39 55 76 36 113 55 113 94 76 115 39 94ZM39 55 76 76 113 55M76 76V115M76 36V76M39 94 76 76 113 94"/></g>
+    <g fill="#f8d164"><circle cx="76" cy="36" r="6"/><circle cx="39" cy="55" r="6"/><circle cx="113" cy="55" r="6"/><circle cx="76" cy="76" r="7"/><circle cx="39" cy="94" r="6"/><circle cx="113" cy="94" r="6"/><circle cx="76" cy="115" r="6"/></g>
+  </g>
+  <g transform="translate(55 405) rotate(6 58 40)">
+    <rect x="5" y="6" width="120" height="88" rx="12" fill="#15212d"/>
+    <rect width="120" height="88" rx="12" fill="#8bdcef" stroke="#15212d" stroke-width="3"/>
+    <path d="m39 28-17 16 17 16M81 28l17 16-17 16M67 24 53 64" fill="none" stroke="#15212d" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(400 410) rotate(-7 58 40)">
+    <rect x="5" y="6" width="120" height="88" rx="12" fill="#15212d"/>
+    <rect width="120" height="88" rx="12" fill="#f4c642" stroke="#15212d" stroke-width="3"/>
+    <circle cx="60" cy="44" r="25" fill="#15212d"/>
+    <path d="m47 45 9 9 18-21" fill="none" stroke="#f4c642" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M294 77v35M277 94h35M282 82l24 24M282 106l24-24" stroke="#15212d" stroke-width="4" stroke-linecap="round"/>
+  <text x="37" y="554" fill="#15212d" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="3">IDEAS → INTELLIGENCE</text>
+</svg>

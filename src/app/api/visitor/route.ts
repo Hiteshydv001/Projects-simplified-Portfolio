@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import crypto from 'crypto'
 import dbConnect from '@/lib/mongodb/mongoose'
 import Visitor from '@/lib/mongodb/models/Visitor'
+import { guardWrite, requestFailure } from '@/lib/security/request'
 
 function getClientIP(req: NextRequest): string {
   // Check multiple sources for IP address in order of reliability
@@ -48,11 +49,12 @@ function getTodayDateString(): string {
 
 export async function GET(req: NextRequest) {
   try {
+    const shouldCount = req.nextUrl.searchParams.get('count') === 'true'
+    if (shouldCount) guardWrite(req, 'visitor')
     await dbConnect()
 
     const visitorHash = generateVisitorHash(req)
     const today = getTodayDateString()
-    const shouldCount = req.nextUrl.searchParams.get('count') === 'true'
 
     // Find or create visitor record
     let visitor = await Visitor.findOne()
@@ -148,14 +150,6 @@ export async function GET(req: NextRequest) {
       )?.uniqueCount || 0,
     })
   } catch (error) {
-    console.error('Visitor API Error:', error)
-    return NextResponse.json(
-      {
-        error: 'Failed to track visitor',
-        totalCount: 0,
-        uniqueVisitors: 0,
-      },
-      { status: 500 }
-    )
+    return requestFailure(error, 'Visitor statistics are temporarily unavailable.')
   }
 }

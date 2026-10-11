@@ -1,0 +1,14 @@
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { ArrowUpRight, ArrowLeft } from 'lucide-react'
+import { Reveal } from './motion'
+import { SelectionFrame, Sticker } from './primitives'
+
+type StorySection = { id: string; label: string; title: string; paragraphs?: string[]; items?: readonly string[]; features?: { title: string; description: string; items?: readonly string[] }[] }
+type StoryProps = { title: string; intro: string; meta: string; image?: { src: string; alt: string }; notes: { label: string; value: string; color: string }[]; sections: StorySection[]; tags?: string[]; back: { href: string; label: string }; links?: { href: string; label: string }[] }
+
+export function StudioStory({ title, intro, meta, image, notes, sections, tags = [], back, links = [] }: StoryProps) {
+  return <article className="studio-page"><Link className="small-link mb-12" href={back.href}><ArrowLeft size={15} />{back.label}</Link><nav className="case-navigation" aria-label="Article sections"><a href="#intro">intro</a>{sections.map(section => <a key={section.id} href={`#${section.id}`}>{section.label.toLowerCase()}</a>)}</nav><Reveal className="case-header" id="intro"><div><span className="project-date">{meta}</span><h1 className="case-title">{title}</h1><p className="case-summary">{intro}</p>{tags.length > 0 && <div className="project-tags">{tags.map(tag => <span key={tag}>{tag}</span>)}</div>}{links.length > 0 && <div className="mt-7 flex flex-wrap gap-5">{links.map(link => <a className="small-link" href={link.href} key={link.href} target="_blank" rel="noopener noreferrer">{link.label}<ArrowUpRight size={16} /></a>)}</div>}</div><aside className="case-notes">{notes.map(note => <Sticker key={note.label} color={note.color}><strong>{note.label}</strong>{note.value}</Sticker>)}</aside></Reveal>{image && <Reveal><SelectionFrame color="ink"><div className="case-cover"><Image src={image.src} alt={image.alt} fill priority sizes="(max-width: 560px) 90vw, 1100px" /></div></SelectionFrame></Reveal>}<div className="case-body">{sections.map(section => <Reveal key={section.id}><section id={section.id}><Sticker>{section.label}</Sticker><h2>{section.title}</h2>{section.paragraphs?.map(paragraph => <p key={paragraph} className="mb-6">{paragraph}</p>)}{section.items && <ul>{section.items.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ul>}{section.features?.map(feature => <div key={feature.title} className="story-feature"><h3>{feature.title}</h3><p>{feature.description}</p>{feature.items && <ul>{feature.items.map(item => <li key={item}>{item}</li>)}</ul>}</div>)}</section></Reveal>)}</div><Link className="small-link" href={back.href}>Back to {back.label.toLowerCase()}<ArrowUpRight size={16} /></Link></article>
+}

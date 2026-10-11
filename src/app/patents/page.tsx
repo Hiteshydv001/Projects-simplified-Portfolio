@@ -1,23 +1,10 @@
-import BaseContainer from '@/components/layout/container/base-container'
-import { DynamicBreadcrumb } from '@/components/ui/primitives/breadcrumb'
-import { ThemeToggle } from '@/components/ui/theme/theme-toggle'
-import TextHeading from '@/components/ui/text-heading/text-heading'
-import Text from '@/components/ui/text/text'
-import { Patents } from '@/components/blocks/homepage/Patents'
+import type { Metadata } from 'next'
+import { patentSummaries } from '@/lib/content/patents'
+import { StudioHeading } from '@/components/studio/primitives'
+import { Reveal } from '@/components/studio/motion'
+import { ArchiveCard } from '@/components/studio/archive-card'
 
+export const metadata: Metadata = { title: 'Patents', description: 'AI-powered inventions and patent applications by Hitesh Kumar.' }
 export default function PatentsPage() {
-  return (
-    <BaseContainer size="lg" paddingX="md" paddingY="lg" className="page-shell">
-      <div className="page-toolbar">
-        <DynamicBreadcrumb items={[{ href: '/', label: 'Home', emoji: '👾' }, { label: 'Patents' }]} />
-        <ThemeToggle />
-      </div>
-      <section className="page-hero mb-8">
-        <Text className="page-eyebrow mb-3">Invention portfolio</Text>
-        <TextHeading as="h1" className="mb-3 text-4xl md:text-5xl">Patents & product systems</TextHeading>
-        <Text variant="muted" className="max-w-2xl">A collection of applied AI, health-tech, and autonomous systems designed around real-world constraints.</Text>
-      </section>
-      <Patents />
-    </BaseContainer>
-  )
+  return <div className="studio-page"><Reveal><StudioHeading note="ideas beyond the screen">Patents</StudioHeading></Reveal><div className="work-grid">{patentSummaries.map(patent => <Reveal key={patent.id}><ArchiveCard href={`/patents/${patent.id}`} title={patent.title} description={patent.description} image={patent.image} alt={patent.alt} meta="Patent application filed" /></Reveal>)}</div></div>
 }

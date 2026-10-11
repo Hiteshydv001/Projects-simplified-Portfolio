@@ -10,7 +10,7 @@ export async function GET(request: Request) {
   const filePath = path.join(process.cwd(), 'public', 'CV_Hitesh_Kumar.pdf')
   const fileBuffer = await readFile(filePath)
 
-  return new Response(fileBuffer, {
+  return new Response(new Uint8Array(fileBuffer), {
     headers: {
       'Content-Type': 'application/pdf',
       'Content-Disposition': shouldDownload

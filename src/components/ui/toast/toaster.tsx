@@ -8,20 +8,9 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-  type ToastProps,
-  type ToastActionElement,
 } from "@/components/ui/toast/toast"
 import { useToast } from "@/components/ui/toast/use-toast"
 
-interface ToasterProps {
-  toasts: Array<{
-    id: string;
-    title?: React.ReactNode;
-    description?: React.ReactNode;
-    action?: ToastActionElement;
-    variant?: 'default' | 'destructive';
-  }>;
-}
 
 export function Toaster() {
   const { toasts } = useToast()

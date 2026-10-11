@@ -39,7 +39,7 @@ export default function Pictionary() {
   const [isDrawing, setIsDrawing] = useState(false)
   const [color, setColor] = useState('#000000')
   const [width, setWidth] = useState(5)
-  const [opacity, setOpacity] = useState(1)
+  const opacity = 1
   const [strokes, setStrokes] = useState<Stroke[]>([])
   const strokesRef = useRef<Stroke[]>([])
   const currentStrokeRef = useRef<Point[]>([])
@@ -103,7 +103,7 @@ export default function Pictionary() {
       ctx.globalAlpha = stroke.opacity
       ctx.lineCap = 'round'
       ctx.lineJoin = 'round'
-      
+
       stroke.points.forEach((point, i) => {
         if (i === 0) ctx.moveTo(point.x, point.y)
         else ctx.lineTo(point.x, point.y)
@@ -202,18 +202,18 @@ export default function Pictionary() {
     try {
       const canvas = canvasRef.current
       if (!canvas) return
-      
+
       // Create a temporary canvas with white background for Gemini
       const tempCanvas = document.createElement('canvas')
       tempCanvas.width = canvas.width
       tempCanvas.height = canvas.height
       const tCtx = tempCanvas.getContext('2d')
       if (!tCtx) return
-      
+
       tCtx.fillStyle = '#FFFFFF'
       tCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height)
       tCtx.drawImage(canvas, 0, 0)
-      
+
       const dataUrl = tempCanvas.toDataURL('image/png')
       const result = await guessDrawing(dataUrl)
       setAiResult(result)

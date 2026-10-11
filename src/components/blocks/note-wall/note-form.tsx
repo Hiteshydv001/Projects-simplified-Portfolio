@@ -21,7 +21,7 @@ export default function NoteForm() {
     if (!text.trim()) return
 
     setIsSubmitting(true)
-    
+
     try {
       const response = await fetch('/api/notes', {
         method: 'POST',
@@ -36,14 +36,15 @@ export default function NoteForm() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to submit note')
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || 'Unable to save your note.')
       }
 
       setText('')
       setName('')
       setEmail('')
       setEmoji(EMOJIS[0])
-      
+
       toast({
         title: "Note dropped successfully! 🎉",
         description: "Your note has been added to the wall.",
@@ -53,7 +54,7 @@ export default function NoteForm() {
       console.warn('Error connecting to notes database:', error)
       toast({
         title: "Note submission unavailable",
-        description: "The notes feature is currently offline.",
+        description: error instanceof Error ? error.message : "Please try again later.",
         variant: "destructive"
       })
     } finally {
@@ -71,6 +72,8 @@ export default function NoteForm() {
     >
       <div className="mb-4">
         <textarea
+          aria-label="Your note"
+          maxLength={1000}
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Leave a note..."
@@ -79,10 +82,13 @@ export default function NoteForm() {
           rows={3}
         />
       </div>
-      
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <input
           type="text"
+          aria-label="Your name (optional)"
+          autoComplete="name"
+          maxLength={100}
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Your name (optional)"
@@ -90,6 +96,9 @@ export default function NoteForm() {
         />
         <input
           type="email"
+          aria-label="Your email (kept private)"
+          autoComplete="email"
+          maxLength={254}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Your email (optional)"
@@ -101,10 +110,12 @@ export default function NoteForm() {
         <div className="flex flex-wrap gap-2">
           {EMOJIS.map((e) => (
             <button
+              aria-label={`Choose ${e} emoji`}
+              aria-pressed={emoji === e}
               key={e}
               type="button"
               onClick={() => setEmoji(e)}
-              className={`w-7 h-7 rounded-lg flex items-center justify-center transition-all ${
+              className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all ${
                 emoji === e
                   ? 'bg-accent/20 border border-accent/40'
                   : 'hover:bg-accent/10 border border-transparent'
@@ -118,7 +129,7 @@ export default function NoteForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="bg-accent hover:bg-accent/80 text-white px-5 py-2 rounded-xl font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-md"
+          className="studio-button disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? 'Dropping note...' : 'Drop Note'} {emoji}
         </button>
@@ -126,3 +137,4 @@ export default function NoteForm() {
     </motion.form>
   )
 }
+

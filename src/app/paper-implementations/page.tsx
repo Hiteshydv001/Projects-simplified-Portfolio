@@ -1,26 +1,10 @@
-import BaseContainer from "@/components/layout/container/base-container"
-import { StackVertical } from "@/components/layout/layout-stack/layout-stack"
-import { PaperCard } from "./_components/PaperCard"
-import { PaperHeader } from "./_components/PaperHeader"
-import { papers } from "./_data/papers"
-import { SectionFooter } from "@/components/layout/footer/SectionFooter"
+import type { Metadata } from 'next'
+import { papers } from './_data/papers'
+import { StudioHeading } from '@/components/studio/primitives'
+import { Reveal } from '@/components/studio/motion'
+import { ArchiveCard } from '@/components/studio/archive-card'
 
+export const metadata: Metadata = { title: 'Paper notes', description: 'Rebuilding machine learning research papers, with notes from the implementation.' }
 export default function PaperListing() {
-    return (
-        <BaseContainer size="md" paddingX="md" paddingY="lg">
-            <StackVertical gap="md">
-                <PaperHeader />
-                <StackVertical gap="none">
-                    {papers.map((paper, index) => (
-                        <PaperCard 
-                            key={paper.id} 
-                            paper={paper} 
-                            isLast={index === papers.length - 1}
-                        />
-                    ))}
-                </StackVertical>
-            </StackVertical>
-            <SectionFooter showToTop={false} />
-        </BaseContainer>
-    )
+  return <div className="studio-page"><Reveal><StudioHeading note="read it. build it. understand it.">Paper notes</StudioHeading></Reveal><div className="work-grid">{papers.map(paper => <Reveal key={paper.id}><ArchiveCard href={`/paper-implementations/${paper.slug}`} title={paper.title} description={paper.description} image="/paper-implementations/autograd-logic/dag.png" alt="A computation graph from the implementation notebook" meta={paper.publishedAt} tags={paper.tags} contain /></Reveal>)}</div></div>
 }

@@ -1,142 +1,41 @@
 'use client'
 
-import { useState, useEffect, use } from 'react'
-import { motion } from 'framer-motion'
+import { use, useEffect, useState } from 'react'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import BaseContainer from '@/components/layout/container/base-container'
-import { StackVertical } from '@/components/layout/layout-stack/layout-stack'
-import TextHeading from '@/components/ui/text-heading/text-heading'
-import Text from '@/components/ui/text/text'
-import { DynamicBreadcrumb } from "@/components/ui/primitives/breadcrumb"
-import { ThemeToggle } from "@/components/ui/theme/theme-toggle"
-import Ruler from '@/components/ui/ruler/ruler'
-import { MDXRemote } from 'next-mdx-remote'
-import { serialize } from 'next-mdx-remote/serialize'
+import { MDXRemote, type MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { mdxComponents } from '@/lib/mdx/mdx-components'
 import { TableOfContents } from '@/components/blocks/table-of-contents/table-of-contents'
+import { Reveal } from '@/components/studio/motion'
+import { Sticker } from '@/components/studio/primitives'
 
-interface Article {
-  title: string;
-  emoji: string;
-  category: string;
-  content: string;
-  createdAt: string;
-}
-
+interface Article { title: string; slug: string; emoji: string; category: string; content: string; description: string; createdAt: string }
 export default function ArticleDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = use(params)
+  const { slug } = use(params)
   const [article, setArticle] = useState<Article | null>(null)
-  const [mdxSource, setMdxSource] = useState<any>(null)
+  const [source, setSource] = useState<MDXRemoteSerializeResult | null>(null)
   const [loading, setLoading] = useState(true)
-
+  const [error, setError] = useState(false)
+  const [attempt, setAttempt] = useState(0)
   useEffect(() => {
-    window.scrollTo(0, 0)
-    
-    const fetchArticle = async () => {
+    const controller = new AbortController()
+    setLoading(true); setError(false); setArticle(null); setSource(null)
+    const load = async () => {
       try {
-        const res = await fetch('/api/articles')
-        const articles = await res.json()
-        const found = articles.find((a: any) => a.slug === resolvedParams.slug)
-        
-        if (found) {
-          setArticle(found)
-          const mdx = await serialize(found.content)
-          setMdxSource(mdx)
-        } else {
-          setArticle(null)
-        }
-      } catch (err) {
-        console.error(err)
-      } finally {
-        setLoading(false)
-      }
+        const response = await fetch(`/api/articles/${encodeURIComponent(slug)}`, { signal: controller.signal })
+        if (response.status === 404) return
+        if (!response.ok) throw new Error('Unavailable')
+        const data: { article: Article; source: MDXRemoteSerializeResult } = await response.json()
+        if (!data.article || typeof data.source?.compiledSource !== 'string') throw new Error('Unavailable')
+        if (!controller.signal.aborted) { setArticle(data.article); setSource(data.source) }
+      } catch { if (!controller.signal.aborted) setError(true) }
+      finally { if (!controller.signal.aborted) setLoading(false) }
     }
-
-    fetchArticle()
-  }, [resolvedParams.slug])
-
-  if (loading) {
-    return (
-      <BaseContainer size="md" paddingX="md" paddingY="lg">
-        <div className="py-20 text-center text-muted-foreground">Loading article...</div>
-      </BaseContainer>
-    )
-  }
-
-  if (!article) {
-    notFound()
-  }
-
-  return (
-    <BaseContainer size="md" paddingX="md" paddingY="lg">
-      <StackVertical gap="lg">
-        <div className="flex items-center justify-between">
-          <DynamicBreadcrumb 
-            items={[
-              { href: '/', label: 'Home', emoji: '👾' },
-              { href: '/articles', label: 'Articles' },
-              { label: article.title }
-            ]}
-          />
-          <ThemeToggle />
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-4"
-        >
-          <div className="flex items-center gap-4">
-            <span className="text-4xl">{article.emoji}</span>
-            <TextHeading as="h1" className="text-3xl sm:text-4xl md:text-5xl font-bold">
-              {article.title}
-            </TextHeading>
-          </div>
-          
-          <div className="flex items-center gap-3 text-sm text-muted-foreground">
-            <span className="px-2 py-0.5 rounded-full border border-accent/30 text-accent font-medium uppercase tracking-wider text-[10px]">
-              {article.category}
-            </span>
-            <span>•</span>
-            <span>
-              {new Date(article.createdAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </span>
-          </div>
-        </motion.div>
-
-        <Ruler />
-
-        <TableOfContents contentId="article-content" />
-
-        <motion.article 
-          id="article-content"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.2 }}
-          className="prose prose-stone dark:prose-invert max-w-none 
-            prose-headings:font-bold prose-headings:tracking-tight
-            prose-p:text-muted-foreground prose-p:leading-relaxed
-            prose-a:text-accent prose-a:no-underline hover:prose-a:underline
-            prose-strong:text-foreground prose-code:text-accent
-            prose-code:bg-accent/10 prose-code:px-1 prose-code:py-0.5 prose-code:rounded
-            prose-pre:bg-black/5 dark:prose-pre:bg-white/5 prose-pre:border prose-pre:border-border/40"
-        >
-          {mdxSource && <MDXRemote {...mdxSource} components={mdxComponents} />}
-        </motion.article>
-
-        <Ruler marginTop="xl" />
-
-        <div className="flex justify-between items-center py-8">
-            <Link href="/articles" className="text-muted-foreground hover:text-foreground transition-colors">
-                ← Back to articles
-            </Link>
-        </div>
-      </StackVertical>
-    </BaseContainer>
-  )
+    load()
+    return () => controller.abort()
+  }, [slug, attempt])
+  if (loading) return <div className="studio-page py-20" role="status">Opening this article…</div>
+  if (error) return <div className="studio-page"><h1 className="case-title">This article couldn’t load.</h1><p className="my-6">Please try again in a moment.</p><div className="flex gap-6"><button className="small-link" onClick={() => setAttempt(value => value + 1)}>Try again ↻</button><Link className="small-link" href="/articles">Back to notebook</Link></div></div>
+  if (!article) notFound()
+  return <article className="studio-page"><Link href="/articles" className="small-link mb-12">← Articles</Link><Reveal className="case-header"><div><span className="text-4xl">{article.emoji}</span><h1 className="case-title mt-6">{article.title}</h1><p className="case-summary">{article.description}</p></div><aside className="case-notes"><Sticker color="cyan"><strong>Filed under</strong>{article.category}</Sticker><Sticker color="yellow"><strong>Published</strong>{new Date(article.createdAt).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</Sticker></aside></Reveal><TableOfContents contentId="article-content" /><div id="article-content" className="paper-prose prose dark:prose-invert max-w-none">{source && <MDXRemote {...source} components={mdxComponents} />}</div><Link href="/articles" className="small-link">← All articles</Link></article>
 }

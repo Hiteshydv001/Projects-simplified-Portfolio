@@ -1,10 +1,13 @@
 'use client'
 
 import React, { useState } from "react";
-import { pipeline, type Pipeline } from "@xenova/transformers";
-import AttentionHeatmap from "./AttentionHeatmap";
-import AttentionArcs from "./AttentionArcs";
-import EmbeddingsView from "./EmbeddingsView";
+import { getTextGenerator } from '@/lib/text-generator';
+
+import dynamic from 'next/dynamic';
+const chartLoading = () => <p role="status">Opening visualization…</p>;
+const AttentionHeatmap = dynamic(() => import('./AttentionHeatmap'), { loading: chartLoading });
+const AttentionArcs = dynamic(() => import('./AttentionArcs'), { loading: chartLoading });
+const EmbeddingsView = dynamic(() => import('./EmbeddingsView'), { loading: chartLoading });
 import { motion } from "framer-motion";
 
 type AttentionData = number[][][][]; // [layer][head][from_token][to_token]
@@ -12,48 +15,51 @@ type EmbeddingsData = number[][]; // [token][embedding_dim]
 
 export default function Playground() {
   const [text, setText] = useState("AI is amazing");
+  const [analyzedText, setAnalyzedText] = useState("");
   const [generatedText, setGeneratedText] = useState("");
   const [attention, setAttention] = useState<AttentionData | null>(null);
   const [embeddings, setEmbeddings] = useState<EmbeddingsData | null>(null);
   const [loading, setLoading] = useState(false);
   const [generating, setGenerating] = useState(false);
+  const [generationError, setGenerationError] = useState('');
   const [currentLayer, setCurrentLayer] = useState(0);
   const [numLayers, setNumLayers] = useState(2);
   const [selectedHead, setSelectedHead] = useState("all");
   const [viewMode, setViewMode] = useState<"heatmap" | "arcs" | "embeddings">("heatmap");
-  
+
   interface GenerationOutput {
     generated_text?: string;
   }
 
   // Text generation function
   const generateNextLine = async () => {
+    if (generating || !text.trim()) return;
     try {
       setGenerating(true);
-      const generator = await pipeline("text-generation", "Xenova/gpt2");
+      setGenerationError('');
+      setGeneratedText('');
+      const generator = await getTextGenerator();
       const output = await generator(text, {
         max_new_tokens: 30,
         temperature: 0.7,
+        do_sample: true,
         return_full_text: false // Only return the generated text, not the input
       }) as GenerationOutput | GenerationOutput[];
-      
+
       // Extract text from the output
       let result = "";
       if (Array.isArray(output)) {
-        console.log('Generation output (array):', output);
         // Get the first result if it's an array
         const firstOutput = output[0];
         result = firstOutput?.generated_text || "";
       } else {
-        console.log('Generation output (single):', output);
         // Handle single output
         result = output?.generated_text || "";
       }
-      
+
       setGeneratedText(result || "No text was generated. Please try again.");
-    } catch (error) {
-      console.error("Error generating text:", error);
-      setGeneratedText("Error generating text. Please try again.");
+    } catch {
+      setGenerationError('Text generation could not load or run. Check your connection and try again.');
     } finally {
       setGenerating(false);
     }
@@ -62,14 +68,14 @@ export default function Playground() {
   const runTransformer = async () => {
     try {
       setLoading(true);
-      const extractor = await pipeline("text-classification", "Xenova/distilbert-base-uncased");
-      
+
+
       // Generate mock attention patterns for visualization
-      const tokens = text.split(' ');
+      const tokens = text.trim().split(/\s+/).slice(0, 24);
       const numHeads = 8;
-      const numLayers = 6;
+
       const seqLength = tokens.length;
-      
+
       const attentionData: AttentionData = Array.from({ length: numLayers }, () =>
         Array.from({ length: numHeads }, () =>
           Array.from({ length: seqLength }, () =>
@@ -77,11 +83,13 @@ export default function Playground() {
           )
         )
       );
-      
+
       const embeddingsData: EmbeddingsData = Array.from({ length: seqLength }, () =>
         Array.from({ length: 768 }, () => Math.random() * 2 - 1)
       );
-      
+
+      setCurrentLayer(0);
+      setAnalyzedText(tokens.join(" "));
       setAttention(attentionData);
       setEmbeddings(embeddingsData);
     } catch (error) {
@@ -97,9 +105,12 @@ export default function Playground() {
       animate={{ opacity: 1, y: 0 }}
       className="p-6 max-w-5xl mx-auto bg-white/80 dark:bg-white/5 border border-border/15 rounded-2xl shadow-[0_18px_60px_-30px_rgba(0,0,0,0.35)] backdrop-blur-md text-sm"
     >
+      <p className="mb-4 text-sm text-muted-foreground">An interactive learning experiment. Attention and embeddings are simulated examples, not extracted model outputs. Text generation runs locally in your browser and downloads a model on first use.</p>
       {/* Input Section */}
       <div className="mb-4">
         <textarea
+          aria-label="Text to explore"
+          maxLength={500}
           value={text}
           onChange={(e) => setText(e.target.value)}
           className="w-full p-3 rounded-xl border border-border/20 bg-white/80 dark:bg-black/30 text-foreground dark:text-white placeholder:text-muted-foreground focus:ring-2 focus:ring-accent/40 focus:border-transparent text-sm shadow-inner"
@@ -110,15 +121,15 @@ export default function Playground() {
         <div className="flex flex-wrap gap-4 mt-4">
           <button
             onClick={runTransformer}
-            disabled={loading}
+            disabled={loading || !text.trim()}
             className="px-4 py-2 rounded-full bg-accent text-white text-xs font-semibold shadow-md shadow-accent/25 hover:bg-accent/90 disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed"
           >
-            {loading ? "Processing..." : "Run Transformer"}
+            {loading ? "Processing..." : "Explore attention"}
           </button>
 
           <button
             onClick={generateNextLine}
-            disabled={generating || !text}
+            disabled={generating || !text.trim()}
             className="px-4 py-2 rounded-full bg-orange-500 text-white text-xs font-semibold shadow-md shadow-orange-500/25 hover:bg-orange-500/90 disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed"
           >
             {generating ? "Generating..." : "Predict Next Line"}
@@ -126,8 +137,9 @@ export default function Playground() {
 
           {/* Controls */}
           <select
+            aria-label="Number of layers"
             value={numLayers}
-            onChange={(e) => setNumLayers(Number(e.target.value))}
+            onChange={(e) => { setNumLayers(Number(e.target.value)); setAttention(null); setEmbeddings(null); setCurrentLayer(0); }}
             className="px-3 py-2 border border-border/20 rounded-full bg-white/80 dark:bg-zinc-900/80 text-xs text-foreground dark:text-white/90 shadow-sm focus:outline-none focus:ring-2 focus:ring-accent/40"
           >
             {[2, 3, 4, 5, 6].map(num => (
@@ -136,11 +148,12 @@ export default function Playground() {
           </select>
 
           <select
+            aria-label="Attention head"
             value={selectedHead}
             onChange={(e) => setSelectedHead(e.target.value)}
             className="px-3 py-2 border border-border/20 rounded-full bg-white/80 dark:bg-zinc-900/80 text-xs text-foreground dark:text-white/90 shadow-sm focus:outline-none focus:ring-2 focus:ring-accent/40"
           >
-            <option value="all" className="bg-white text-foreground dark:bg-zinc-900 dark:text-white">All Heads</option>
+            <option value="all" className="bg-white text-foreground dark:bg-zinc-900 dark:text-white">Head 1 (default)</option>
             {[...Array(8)].map((_, i) => (
               <option key={i} value={i} className="bg-white text-foreground dark:bg-zinc-900 dark:text-white">Head {i + 1}</option>
             ))}
@@ -182,6 +195,7 @@ export default function Playground() {
       </div>
 
       {/* Generated Text Section */}
+      {generationError && <p role="alert" className="mt-4 text-sm text-destructive">{generationError}</p>}
       {generatedText && (
         <div className="mt-4 p-4 bg-white/80 dark:bg-white/5 rounded-xl border border-border/20 shadow-inner">
           <h3 className="text-xs font-medium text-muted-foreground mb-2">Generated Continuation:</h3>
@@ -210,7 +224,7 @@ export default function Playground() {
                 attention={attention} 
                 layer={currentLayer}
                 selectedHead={selectedHead}
-                text={text}
+                text={analyzedText}
               />
             )}
             {viewMode === "arcs" && (
@@ -253,7 +267,7 @@ export default function Playground() {
           </div>
         ) : (
           <div className="flex items-center justify-center h-[300px] text-muted-foreground text-xs">
-            Run the transformer to see visualizations
+            Enter a short sentence and explore the simulated attention patterns
           </div>
         )}
       </div>

@@ -2,9 +2,10 @@
 
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import type { EmbeddingsProps } from './types';
 
-export default function EmbeddingsView({ embeddings, text }) {
-  const svgRef = useRef();
+export default function EmbeddingsView({ embeddings, text }: EmbeddingsProps) {
+  const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     if (!embeddings || !svgRef.current) return;
@@ -19,14 +20,16 @@ export default function EmbeddingsView({ embeddings, text }) {
 
     const svg = d3.select(svgRef.current)
       .attr('width', width)
-      .attr('height', height);
+      .attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .style('width', '100%').style('height', 'auto');
 
     const tokenSpacing = (width - margin.left - margin.right) / tokens.length;
     const barWidth = tokenSpacing * 0.8;
 
     // Scale for the bar heights
     const yScale = d3.scaleLinear()
-      .domain([d3.min(embeddings.flat()), d3.max(embeddings.flat())])
+      .domain([(d3.min(embeddings.flat()) ?? -1), (d3.max(embeddings.flat()) ?? 1)])
       .range([height - margin.bottom, margin.top]);
 
     // Draw bars for each token's embedding
@@ -63,7 +66,7 @@ export default function EmbeddingsView({ embeddings, text }) {
 
   return (
     <div className="flex justify-center items-center">
-      <svg ref={svgRef}></svg>
+      <svg role="img" aria-label="Transformer visualization" className="fill-foreground" ref={svgRef}></svg>
     </div>
   );
 }

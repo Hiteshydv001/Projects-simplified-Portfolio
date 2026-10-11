@@ -1,7 +1,6 @@
 'use client'
 
 import { cn } from '@/lib/utils/utils'
-import { codeFont } from '@/styles/fonts/fonts'
 import { Highlight } from 'prism-react-renderer'
 import { useTheme } from 'next-themes'
 import { useState } from 'react'
@@ -15,7 +14,7 @@ const CopyButton = ({ code, language }: { code: string; language?: string }) => 
         typeof window !== 'undefined' && 
         window.matchMedia('(prefers-color-scheme: dark)').matches
     );
-    
+
     const copy = async () => {
         await navigator.clipboard.writeText(code);
         setCopied(true);
@@ -38,7 +37,7 @@ const CopyButton = ({ code, language }: { code: string; language?: string }) => 
                     {language}
                 </div>
             )}
-            
+
             {/* Copy button with status */}
             <div className="flex items-center">
                 <div className={cn(

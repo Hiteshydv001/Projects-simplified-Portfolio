@@ -20,14 +20,16 @@ export default function AttentionHeatmap({ attention, layer, selectedHead, text 
 
     const svg = d3.select(svgRef.current)
       .attr('width', width)
-      .attr('height', height);
+      .attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .style('width', '100%').style('height', 'auto');
 
-    const attentionMatrix = attention[layer][selectedHead === "all" ? 0 : selectedHead];
+    const attentionMatrix = attention[layer][selectedHead === "all" ? 0 : Number(selectedHead)];
 
     // Create color scale
-    const colorScale = d3.scaleLinear()
-      .domain([0, d3.max(attentionMatrix.flat())])
-      .range(['white', 'red']);
+    const colorScale = d3.scaleLinear<string>()
+      .domain([0, (d3.max(attentionMatrix.flat()) ?? 1)])
+      .range(['#e0f2f1', '#008f8f']);
 
     const cellSize = Math.min(
       (width - margin.left - margin.right) / tokens.length,
@@ -85,7 +87,7 @@ export default function AttentionHeatmap({ attention, layer, selectedHead, text 
 
   return (
     <div className="flex justify-center items-center">
-      <svg ref={svgRef}></svg>
+      <svg role="img" aria-label="Transformer visualization" className="fill-foreground" ref={svgRef}></svg>
     </div>
   );
 }

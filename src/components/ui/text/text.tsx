@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils/utils'
-import { monoFont } from '@/styles/fonts/fonts'
+import { sansFont } from '@/styles/fonts/fonts'
 
 interface TextProps {
     children: React.ReactNode;
@@ -90,7 +90,7 @@ export default function Text({
 
     return (
         <p className={cn(
-            monoFont.className,
+            sansFont.className,
             textSizes[finalSize],
             fontWeights[finalWeight],
             variants[finalVariant],

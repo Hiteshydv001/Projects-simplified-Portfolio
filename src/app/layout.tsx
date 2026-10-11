@@ -4,10 +4,28 @@ import Script from 'next/script'
 import { ThemeProvider } from '@/components/ui/theme/theme-provider'
 import { cn } from '@/lib/utils/utils'
 import { Analytics } from "@vercel/analytics/react"
-import { monoFont, sansFont } from '@/styles/fonts/fonts'
-import { PaperBackground } from '@/components/ui/paper-background/paper-background'
+import { monoFont, sansFont, displayFont, handwritingFont } from '@/styles/fonts/fonts'
 import ToasterProvider from '@/components/ui/toast/toaster-provider'
-import { AssistantWidget } from '@/components/blocks/assistant/assistant-widget'
+import { StudioNavbar, StudioFooter } from '@/components/studio/chrome'
+import { PortfolioCursor } from '@/components/studio/selection-cursor'
+import { MotionProvider } from '@/components/layout/motion-provider'
+import { TrafficTracker } from '@/components/layout/traffic-tracker'
+import { PortfolioAssistant } from '@/components/studio/assistant-pet'
+import { experiences } from '@/app/experience/_data/experiences'
+import { majorProjects } from '@/app/projects/_data/projects-data'
+import { technicalCertificates } from '@/app/certificates/_data/technical-certificates'
+import { nonTechnicalCertificates } from '@/app/certificates/_data/non-technical-certificates'
+
+// Send only labels and destinations to the navbar, not the full content datasets.
+const navigationSections = {
+  '/': [{ label: 'Introduction', href: '/#top' }, { label: 'Featured work', href: '/#featured-work' }, { label: 'Experiments', href: '/#experiments' }],
+  '/about': [{ label: 'Bio', href: '/about#bio' }, { label: 'Education', href: '/about#education' }, ...experiences.slice(0, 5).map(item => ({ label: item.company, href: `/experience/${item.slug}` })), { label: 'All experience', href: '/experience' }, { label: 'Resume', href: '/resume' }],
+  '/case-study': [...majorProjects.map(item => ({ label: item.title, href: `/case-study/${item.title.toLowerCase().replace(/\s+/g, '-')}` })), { label: 'All projects', href: '/case-study' }],
+  '/certificates': [...technicalCertificates, ...nonTechnicalCertificates].map(item => ({ label: item.title, href: `/certificates/${item.slug}` })),
+  '/play-ground': [{ label: 'AI lab', href: '/ai-playground' }, { label: 'Paper implementations', href: '/paper-implementations' }, { label: 'Research', href: '/research' }, { label: 'Patents', href: '/patents' }, { label: 'Leave a note', href: '/leave_note_for_me' }],
+  '/articles': [{ label: 'All articles', href: '/articles' }],
+  '/analytics': [{ label: 'Visitors & page views', href: '/analytics#traffic' }, { label: 'GitHub contributions', href: '/analytics#github-contributions' }],
+}
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
     || process.env.NEXT_PUBLIC_APP_URL
@@ -25,7 +43,7 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image', title: 'Hitesh Kumar | AI & Machine Learning Engineer', description: 'Projects, research, and experience in AI, ML, RAG, and full-stack systems.' },
 }
 
-const gaId = process.env.NEXT_PUBLIC_GA_ID
+const gaId = /^G-[A-Z0-9]+$/.test(process.env.NEXT_PUBLIC_GA_ID || '') ? process.env.NEXT_PUBLIC_GA_ID : undefined
 
 export default function RootLayout({
   children,
@@ -33,17 +51,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={cn(
+    <html id="top" lang="en" className={cn(
       "h-full",
       monoFont.variable,
-      sansFont.variable
+      displayFont.variable,
+      sansFont.variable,
+      handwritingFont.variable
     )} suppressHydrationWarning>
       <body className={cn(
-        "h-full bg-transparent transition-colors duration-300 overflow-x-hidden"
+        "studio-body"
       )}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
+          storageKey="hitesh-studio-theme-v2"
           enableSystem={false}
           disableTransitionOnChange
         >
@@ -61,20 +82,27 @@ gtag('config', '${gaId}', { send_page_view: true });`}
               </Script>
             </>
           )}
-          <PaperBackground />
+          <MotionProvider>
+          <PortfolioAssistant>
+          <TrafficTracker />
+          <a href="#main-content" className="skip-link">Skip to content</a>
+          <StudioNavbar sections={navigationSections} />
+          <PortfolioCursor />
           <Script id="person-schema" type="application/ld+json" strategy="beforeInteractive">
-            {JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: 'Hitesh Kumar', url: siteUrl, jobTitle: 'AI & Machine Learning Engineer', description: 'AI and Machine Learning engineer specializing in RAG systems, LLM agents, machine learning, and full-stack applications.', sameAs: ['https://github.com/Hiteshydv001', 'https://www.linkedin.com/in/hiteshkumar'] })}
+            {JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: 'Hitesh Kumar', url: siteUrl, jobTitle: 'AI & Machine Learning Engineer', description: 'AI and Machine Learning engineer specializing in RAG systems, LLM agents, machine learning, and full-stack applications.', sameAs: ['https://github.com/Hiteshydv001', 'https://www.linkedin.com/in/hitesh-kumar-7b8a1b1b0/'] }).replace(/</g, '\u003c')}
           </Script>
           <div className="flex flex-col min-h-screen relative">
             <div className="flex-1 flex flex-col">
-              <main className="container mx-auto mt-4 px-4 flex-1">
+              <main id="main-content" tabIndex={-1} className="mx-auto w-full flex-1">
                 {children}
                 <Analytics />
               </main>
             </div>
           </div>
           <ToasterProvider />
-          <AssistantWidget />
+          <StudioFooter />
+          </PortfolioAssistant>
+          </MotionProvider>
         </ThemeProvider>
       </body>
     </html>

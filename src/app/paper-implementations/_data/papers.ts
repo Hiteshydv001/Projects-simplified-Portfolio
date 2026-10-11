@@ -10,7 +10,6 @@ export const papers: Paper[] = [
         authors: ["Vaswani, A.", "et al."],
         tags: ["Transformers", "NLP", "PyTorch", "Deep Learning"],
         isNew: true,
-        paperLink: "https://arxiv.org/abs/1706.03762",
-        githubLink: "https://github.com/your-username/transformer-implementation"
+        paperLink: "https://arxiv.org/abs/1706.03762"
     }
 ];

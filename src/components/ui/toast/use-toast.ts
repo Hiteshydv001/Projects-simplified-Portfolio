@@ -6,6 +6,8 @@ const TOAST_LIMIT = 1
 const TOAST_REMOVE_DELAY = 1000000
 
 type ToasterToast = {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   id: string
   title?: React.ReactNode
   description?: React.ReactNode
@@ -13,12 +15,10 @@ type ToasterToast = {
   variant?: "default" | "destructive"
 }
 
-const actionTypes = {
-  ADD_TOAST: "ADD_TOAST",
-  UPDATE_TOAST: "UPDATE_TOAST",
-  DISMISS_TOAST: "DISMISS_TOAST",
-  REMOVE_TOAST: "REMOVE_TOAST",
-} as const
+type ActionType = {
+  ADD_TOAST: 'ADD_TOAST'; UPDATE_TOAST: 'UPDATE_TOAST';
+  DISMISS_TOAST: 'DISMISS_TOAST'; REMOVE_TOAST: 'REMOVE_TOAST';
+}
 
 let count = 0
 
@@ -27,7 +27,6 @@ function genId() {
   return count.toString()
 }
 
-type ActionType = typeof actionTypes
 
 type Action =
   | {

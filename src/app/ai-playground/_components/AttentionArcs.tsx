@@ -2,9 +2,10 @@
 
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import type { AttentionProps } from './types';
 
-export default function AttentionArcs({ attention, layer, selectedHead, text }) {
-  const svgRef = useRef();
+export default function AttentionArcs({ attention, layer, selectedHead, text }: AttentionProps) {
+  const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     if (!attention || !svgRef.current) return;
@@ -19,11 +20,13 @@ export default function AttentionArcs({ attention, layer, selectedHead, text }) 
 
     const svg = d3.select(svgRef.current)
       .attr('width', width)
-      .attr('height', height);
+      .attr('height', height)
+      .attr('viewBox', `0 0 ${width} ${height}`)
+      .style('width', '100%').style('height', 'auto');
 
-    const attentionMatrix = attention[layer][selectedHead === "all" ? 0 : selectedHead];
+    const attentionMatrix = attention[layer][selectedHead === "all" ? 0 : Number(selectedHead)];
 
-    const tokenSpacing = (width - margin.left - margin.right) / (tokens.length - 1);
+    const tokenSpacing = (width - margin.left - margin.right) / Math.max(1, tokens.length - 1);
 
     // Draw tokens
     tokens.forEach((token, i) => {
@@ -66,7 +69,7 @@ export default function AttentionArcs({ attention, layer, selectedHead, text }) 
 
   return (
     <div className="flex justify-center items-center">
-      <svg ref={svgRef}></svg>
+      <svg role="img" aria-label="Transformer visualization" className="fill-foreground" ref={svgRef}></svg>
     </div>
   );
 }

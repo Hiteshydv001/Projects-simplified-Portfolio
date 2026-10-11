@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
@@ -8,14 +7,12 @@ import Image from 'next/image'
 import { ExternalLink, ChevronLeft, FileBadge2, FileText, Award } from 'lucide-react'
 import BaseContainer from '@/components/layout/container/base-container'
 import { StackVertical } from '@/components/layout/layout-stack/layout-stack'
-import { SectionFooter } from '@/components/layout/footer/SectionFooter'
 import { DynamicBreadcrumb } from '@/components/ui/primitives/breadcrumb'
-import { ThemeToggle } from '@/components/ui/theme/theme-toggle'
 import TextHeading from '@/components/ui/text-heading/text-heading'
 import Text from '@/components/ui/text/text'
 import { experiences } from '@/app/experience/_data/experiences'
 
-function toPreviewUrl(url) {
+function toPreviewUrl(url: string) {
   if (url.includes('drive.google.com')) {
     const fileId = url.match(/\/d\/([a-zA-Z0-9-_]+)/)?.[1]
     if (fileId) {
@@ -47,12 +44,12 @@ export default function ExperienceDetailPage() {
       experience.lorUrl
         ? { key: 'lor', label: 'Letter of Recommendation', url: experience.lorUrl, icon: FileText }
         : null,
-    ].filter(Boolean)
+    ].filter((doc): doc is NonNullable<typeof doc> => doc !== null)
 
     return allDocs
   }, [experience])
 
-  const [activeDocKey, setActiveDocKey] = useState(null)
+  const [activeDocKey, setActiveDocKey] = useState<string | null>(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -78,12 +75,12 @@ export default function ExperienceDetailPage() {
                 { label: 'Not Found' },
               ]}
             />
-            <ThemeToggle />
+
           </div>
 
           <div className="rounded-2xl border border-red-500/25 bg-red-500/10 p-6">
             <TextHeading as="h1" className="text-2xl font-bold">Experience not found</TextHeading>
-            <Text variant="muted" className="mt-2">Ye route exist nahi karta. Wapas experience page pe jao.</Text>
+            <Text variant="muted" className="mt-2">This experience could not be found. Explore the full experience archive.</Text>
             <Link
               href="/experience"
               className="mt-4 inline-flex items-center gap-2 rounded-lg border border-border/50 bg-muted/30 px-3 py-2 text-sm hover:bg-muted/50 transition-colors"
@@ -111,12 +108,12 @@ export default function ExperienceDetailPage() {
               { label: experience.company },
             ]}
           />
-          <ThemeToggle />
+
         </div>
 
-        <section className="page-hero relative overflow-hidden p-6 sm:p-8">
-          <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-cyan-500/20 blur-3xl" />
-          <div className="absolute -left-16 -bottom-16 h-40 w-40 rounded-full bg-emerald-500/20 blur-3xl" />
+        <section className="page-hero experience-detail-header relative p-6 sm:p-8">
+          
+          
           <div className="relative flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
             <div className="flex gap-4">
               <div className="relative h-16 w-16 overflow-hidden rounded-2xl border border-border/40 bg-background/40">
@@ -135,7 +132,7 @@ export default function ExperienceDetailPage() {
                 <Text variant="muted" className="mt-1">
                   {experience.company} · {experience.location}
                 </Text>
-                <Text size="sm" className="mt-2 font-medium text-cyan-300">
+                <Text size="sm" className="mt-2 font-medium text-cyan-700 dark:text-cyan-300">
                   {experience.period}
                 </Text>
               </div>
@@ -283,7 +280,7 @@ export default function ExperienceDetailPage() {
           </div>
         </section>
       </StackVertical>
-      <SectionFooter color="purple" showToTop={true} />
     </BaseContainer>
   )
 }
+
