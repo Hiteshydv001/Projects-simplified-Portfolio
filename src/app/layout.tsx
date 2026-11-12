@@ -10,6 +10,7 @@ import { StudioNavbar, StudioFooter } from '@/components/studio/chrome'
 import { PortfolioCursor } from '@/components/studio/selection-cursor'
 import { MotionProvider } from '@/components/layout/motion-provider'
 import { TrafficTracker } from '@/components/layout/traffic-tracker'
+import { HashlessAnchors } from '@/components/layout/hashless-anchors'
 import { PortfolioAssistant } from '@/components/studio/assistant-pet'
 import { experiences } from '@/app/experience/_data/experiences'
 import { majorProjects } from '@/app/projects/_data/projects-data'
@@ -18,11 +19,11 @@ import { nonTechnicalCertificates } from '@/app/certificates/_data/non-technical
 
 // Send only labels and destinations to the navbar, not the full content datasets.
 const navigationSections = {
-  '/': [{ label: 'Introduction', href: '/#top' }, { label: 'Featured work', href: '/#featured-work' }, { label: 'Experiments', href: '/#experiments' }],
+  '/': [{ label: 'Introduction', href: '/#top' }, { label: 'Featured work', href: '/#featured-work' }, { label: 'R&D Lab', href: '/#experiments' }],
   '/about': [{ label: 'Bio', href: '/about#bio' }, { label: 'Education', href: '/about#education' }, ...experiences.slice(0, 5).map(item => ({ label: item.company, href: `/experience/${item.slug}` })), { label: 'All experience', href: '/experience' }, { label: 'Resume', href: '/resume' }],
   '/case-study': [...majorProjects.map(item => ({ label: item.title, href: `/case-study/${item.title.toLowerCase().replace(/\s+/g, '-')}` })), { label: 'All projects', href: '/case-study' }],
   '/certificates': [...technicalCertificates, ...nonTechnicalCertificates].map(item => ({ label: item.title, href: `/certificates/${item.slug}` })),
-  '/play-ground': [{ label: 'AI lab', href: '/ai-playground' }, { label: 'Paper implementations', href: '/paper-implementations' }, { label: 'Research', href: '/research' }, { label: 'Patents', href: '/patents' }, { label: 'Leave a note', href: '/leave_note_for_me' }],
+  '/play-ground': [{ label: 'AI lab', href: '/ai-playground' }, { label: 'Paper implementations', href: '/paper-implementations' }, { label: 'Research', href: '/research' }, { label: 'Patents', href: '/patents' }],
   '/articles': [{ label: 'All articles', href: '/articles' }],
   '/analytics': [{ label: 'Visitors & page views', href: '/analytics#traffic' }, { label: 'GitHub contributions', href: '/analytics#github-contributions' }],
 }
@@ -85,11 +86,12 @@ gtag('config', '${gaId}', { send_page_view: true });`}
           <MotionProvider>
           <PortfolioAssistant>
           <TrafficTracker />
+          <HashlessAnchors />
           <a href="#main-content" className="skip-link">Skip to content</a>
           <StudioNavbar sections={navigationSections} />
           <PortfolioCursor />
           <Script id="person-schema" type="application/ld+json" strategy="beforeInteractive">
-            {JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: 'Hitesh Kumar', url: siteUrl, jobTitle: 'AI & Machine Learning Engineer', description: 'AI and Machine Learning engineer specializing in RAG systems, LLM agents, machine learning, and full-stack applications.', sameAs: ['https://github.com/Hiteshydv001', 'https://www.linkedin.com/in/hitesh-kumar-7b8a1b1b0/'] }).replace(/</g, '\u003c')}
+            {JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: 'Hitesh Kumar', url: siteUrl, jobTitle: 'AI & Machine Learning Engineer', description: 'AI and Machine Learning engineer specializing in RAG systems, LLM agents, machine learning, and full-stack applications.', sameAs: ['https://github.com/Hiteshydv001', 'https://www.linkedin.com/in/hitesh-kumar-ai'] }).replace(/</g, '\u003c')}
           </Script>
           <div className="flex flex-col min-h-screen relative">
             <div className="flex-1 flex flex-col">

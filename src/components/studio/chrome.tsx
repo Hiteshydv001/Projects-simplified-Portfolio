@@ -4,8 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { motion, useScroll } from 'framer-motion'
-import { Home, Asterisk, PanelsTopLeft, Blocks, Notebook, Award, ChartNoAxesCombined, Heart, ArrowUpRight, Github, Linkedin, Mail, Sun, Moon, Pause, Play, Search, X, BookOpen, Code2, Lightbulb, Briefcase, FlaskConical, History, PenLine, FileText } from 'lucide-react'
+import { Compass, Home, Asterisk, PanelsTopLeft, Blocks, Notebook, Award, ChartNoAxesCombined, Heart, ArrowUpRight, Mail, Sun, Moon, Pause, Play, Search, X, BookOpen, Code2, Lightbulb, Briefcase, FlaskConical, History, FileText } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/primitives/dialog'
 import { useMotionSettings } from '@/components/layout/motion-provider'
@@ -13,11 +12,15 @@ import { StudioHeading } from './primitives'
 import { Reveal } from './motion'
 import { StudioTool } from './tools'
 import { Icebreaker } from './icebreaker'
+import { BookingDialog, BOOKING_URL } from './booking'
+import { FooterHorizon } from './footer-horizon'
+import { usePortfolioAssistant } from './assistant-pet'
+import { IconContext, CalendarDots, EnvelopeSimple, ChatCircleDots, GithubLogo, LinkedinLogo, XLogo, ArrowUp } from '@phosphor-icons/react'
 
 const mainLinks = [
   { href: '/', label: 'Home', Icon: Home }, { href: '/about', label: 'About', Icon: Asterisk },
   { href: '/case-study', label: 'Projects', Icon: PanelsTopLeft }, { href: '/certificates', label: 'Certifications', Icon: Award },
-  { href: '/play-ground', label: 'Experiments', Icon: Blocks },
+  { href: '/play-ground', label: 'R&D Lab', Icon: Blocks },
   { href: '/articles', label: 'Articles', Icon: Notebook }, { href: '/analytics', label: 'Analytics', Icon: ChartNoAxesCombined },
 ]
 const allLinks = [
@@ -29,12 +32,11 @@ const allLinks = [
   { href: '/patents', label: 'Patents', description: 'Ideas & inventions', Icon: Lightbulb, keywords: 'innovation' },
   { href: '/experience', label: 'Experience', description: 'Where I’ve worked', Icon: Briefcase, keywords: 'jobs career internship' },
   { href: '/certificates', label: 'Certifications', description: 'Credentials & learning', Icon: Award, keywords: 'certificates courses awards' },
-  { href: '/play-ground', label: 'Experiments', description: 'Small creative experiments', Icon: Blocks, keywords: 'demos games playground' },
+  { href: '/play-ground', label: 'R&D Lab', description: 'Prototypes, papers & inventions', Icon: Blocks, keywords: 'experiments demos games playground research lab prototypes' },
   { href: '/ai-playground', label: 'AI lab', description: 'Interactive AI experiments', Icon: FlaskConical, keywords: 'machine learning ml attention embeddings' },
   { href: '/articles', label: 'Articles', description: 'Notes & things I’ve learned', Icon: Notebook, keywords: 'articles writing posts blog notebook' },
   { href: '/analytics', label: 'Analytics', description: 'Visitors & page views', Icon: ChartNoAxesCombined, keywords: 'traffic stats' },
   { href: '/portfolio', label: 'Past portfolios', description: 'Earlier versions of this site', Icon: History, keywords: 'archive websites' },
-  { href: '/leave_note_for_me', label: 'Leave a note', description: 'A little message on the wall', Icon: PenLine, keywords: 'guestbook feedback' },
   { href: '/resume', label: 'Resume', description: 'My background at a glance', Icon: FileText, keywords: 'cv curriculum vitae' },
   { href: '/contact', label: 'Contact', description: 'Let’s start a conversation', Icon: Mail, keywords: 'email talk hire connect' },
 ]
@@ -48,6 +50,7 @@ export function StudioNavbar({ sections }: { sections: Record<string, Navigation
   const [articleLinks, setArticleLinks] = useState<NavigationLink[] | null>(null)
   const [query, setQuery] = useState('')
   const [mounted, setMounted] = useState(false)
+  const [docked, setDocked] = useState(false)
   const searchInput = useRef<HTMLInputElement>(null)
   const results = useRef<HTMLElement>(null)
   const dropdownCloseTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -68,7 +71,6 @@ export function StudioNavbar({ sections }: { sections: Record<string, Navigation
   const exploreId = useId()
   const { resolvedTheme, setTheme } = useTheme()
   const { reduced, toggle } = useMotionSettings()
-  const { scrollYProgress } = useScroll()
   const isDark = mounted && resolvedTheme === 'dark'
   const themeLabel = `Switch to ${isDark ? 'light' : 'dark'} theme`
   const active = (href: string) => href === '/' ? pathname === '/' || pathname === '/homepage' : href === '/case-study' ? pathname.startsWith('/case-study') || pathname.startsWith('/projects') : pathname.startsWith(href)
@@ -104,6 +106,13 @@ export function StudioNavbar({ sections }: { sections: Record<string, Navigation
   }, [exploreOpen, articleLinks])
   useEffect(() => { setMounted(true) }, [])
   useEffect(() => {
+    // Dock the floating pill to the top edge once the page starts scrolling.
+    const update = () => setDocked(window.scrollY > 24)
+    update()
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+  useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
       if (event.defaultPrevented || event.repeat) return
       if ((event.ctrlKey || event.metaKey) && !event.altKey && event.key.toLowerCase() === 'k') {
@@ -117,7 +126,7 @@ export function StudioNavbar({ sections }: { sections: Record<string, Navigation
     return () => window.removeEventListener('keydown', shortcut)
   }, [])
   return <>
-    <header className="studio-nav">
+    <header className={`studio-nav${docked ? ' is-docked' : ''}`}>
       <Link href="/" className="studio-nav-brand" aria-label="Hitesh Kumar home"><span className="studio-brand-mark studio-original-brand" aria-hidden="true"><Image src="/favicon.ico" alt="" width={34} height={34} unoptimized /></span><span>hitesh<span className="studio-brand-domain">.ml</span></span></Link>
       <div className="studio-navigation">
         <nav className="studio-primary-nav" aria-label="Primary navigation">{mainLinks.map(({ href, label, Icon }, index) => {
@@ -140,7 +149,7 @@ export function StudioNavbar({ sections }: { sections: Record<string, Navigation
       <Dialog open={open} onOpenChange={changeOpen}>
         <DialogTrigger asChild><button type="button" className="studio-menu" aria-label="Search all pages" title="Search pages (Ctrl / ⌘ K)"><Search size={18} strokeWidth={1.8} aria-hidden="true" /><kbd aria-hidden="true">Ctrl K</kbd></button></DialogTrigger>
         <DialogContent className="studio-menu-dialog" onOpenAutoFocus={event => { event.preventDefault(); searchInput.current?.focus() }}>
-          <div className="studio-search-heading"><DialogTitle>Search portfolio</DialogTitle><DialogDescription>Find a page. Pick up where your curiosity takes you.</DialogDescription></div>
+          <div className="studio-search-heading"><span className="studio-search-badge" aria-hidden="true"><Compass size={20} strokeWidth={1.9} /></span><div><DialogTitle>Search portfolio</DialogTitle><DialogDescription>Find a page. Pick up where your curiosity takes you.</DialogDescription></div></div>
           <div className="studio-search-field">
             <Search size={20} strokeWidth={1.8} aria-hidden="true" />
             <input ref={searchInput} id={searchId} type="search" className="studio-menu-search" placeholder="Search pages, projects, AI lab…" aria-label="Search portfolio pages" aria-controls={`${searchId}-results`} autoComplete="off" spellCheck={false} value={query} onChange={event => setQuery(event.target.value)} onKeyDown={event => {
@@ -149,7 +158,7 @@ export function StudioNavbar({ sections }: { sections: Record<string, Navigation
                 if (first) { event.preventDefault(); if (event.key === 'Enter') first.click(); else first.focus() }
               }
             }} />
-            {query ? <button type="button" className="studio-search-clear" aria-label="Clear search" onClick={() => { setQuery(''); searchInput.current?.focus() }}><X size={16} aria-hidden="true" /></button> : <kbd className="studio-search-shortcut">⌘ / Ctrl K</kbd>}
+            {query ? <button type="button" className="studio-search-clear" aria-label="Clear search" onClick={() => { setQuery(''); searchInput.current?.focus() }}><X size={16} aria-hidden="true" /></button> : <span className="studio-search-shortcut" aria-hidden="true"><kbd>Ctrl</kbd><kbd>K</kbd></span>}
           </div>
           <p className="studio-search-count" role="status">{query.trim() ? `${filteredLinks.length} ${filteredLinks.length === 1 ? 'page' : 'pages'} found` : 'Explore all pages'}</p>
           <nav ref={results} id={`${searchId}-results`} aria-label="Search results" className="studio-menu-grid" onKeyDown={event => {
@@ -172,13 +181,12 @@ export function StudioNavbar({ sections }: { sections: Record<string, Navigation
           {isDark ? <Sun size={17} strokeWidth={1.8} aria-hidden="true" /> : <Moon size={17} strokeWidth={1.8} aria-hidden="true" />}
           <span className="nav-control-tooltip" aria-hidden="true">{themeLabel}</span>
         </button>
-        <a className="nav-contact" href="https://cal.com/hitesh-kumar-aiml/30min" target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute call (opens in a new tab)">
+        <BookingDialog><a className="nav-contact" href={BOOKING_URL} target="_blank" rel="noopener noreferrer" aria-label="Book a 30-minute call">
           <span className="nav-contact-mark" aria-hidden="true"><Heart size={13} strokeWidth={1.8} /></span>
           <span className="nav-contact-label">Let’s talk</span>
           <ArrowUpRight className="nav-contact-arrow" size={14} strokeWidth={1.8} aria-hidden="true" />
-        </a>
+        </a></BookingDialog>
       </div>
-      <motion.div className="scroll-progress" style={{ scaleX: scrollYProgress }} />
     </header>
   </>
 }
@@ -186,10 +194,34 @@ export function StudioNavbar({ sections }: { sections: Record<string, Navigation
 export function StudioFooter() {
   const pathname = usePathname()
   const isContact = pathname === '/contact'
-  return <footer className={`studio-footer ${isContact ? 'compact-footer' : ''}`}>
-    {!isContact && <Reveal className="studio-footer-main"><div><StudioHeading as="h2">Let’s talk</StudioHeading><p>A project, a question, or a wonderfully weird idea. I’m listening.</p><p className="hand-note footer-invitation">your move ↗</p></div><Icebreaker /></Reveal>}
-    <div className="studio-footer-bottom"><Link href="/" className="footer-signature">hitesh.ml <Asterisk size={20} /></Link><div className="footer-socials"><a href="https://github.com/Hiteshydv001" target="_blank" rel="noopener noreferrer"><Github size={20} />GitHub</a><a href="https://x.com/tensor_nets" target="_blank" rel="noopener noreferrer"><span aria-hidden="true">𝕏</span>Twitter</a><a href="https://www.linkedin.com/in/hitesh-kumar-7b8a1b1b0/" target="_blank" rel="noopener noreferrer"><Linkedin size={20} />LinkedIn</a><a href="mailto:hiteshofficial0001@gmail.com"><Mail size={20} />Email</a></div><a href="#top" className="footer-top">Back to top ↑</a></div>
-    <div className="studio-footer-tools"><StudioTool type="booking" /><StudioTool type="assistant" /><Link href="/leave_note_for_me" className="small-link">Leave a public note <ArrowUpRight size={16} /></Link></div>
-    <div className="footer-colophon"><span>© {new Date().getFullYear()} Hitesh Kumar</span><span>Made with curiosity. Built to be explored.</span></div>
-  </footer>
+  const openAssistant = usePortfolioAssistant()
+  return <IconContext.Provider value={{ weight: 'duotone' }}><footer className={`studio-footer ${isContact ? 'compact-footer' : ''}`}>
+    {!isContact && <Reveal className="studio-footer-main">
+      <div className="footer-talk">
+        <p className="hand-note footer-hello">say hello</p>
+        <StudioHeading as="h2">Let’s talk</StudioHeading>
+        <p className="footer-lede">A project, a question, or a wonderfully weird idea. I’m listening.</p>
+        <span className="footer-status"><i aria-hidden="true" />Open to AI/ML roles &amp; thoughtful collaborations</span>
+        <div className="footer-ctas">
+          <BookingDialog><a className="studio-button xp-primary" href={BOOKING_URL} target="_blank" rel="noopener noreferrer"><span className="button-icon"><CalendarDots size={18} aria-hidden="true" /></span><span>Book a 30-min call</span></a></BookingDialog>
+          <a className="rk-btn" href="mailto:hiteshofficial0001@gmail.com"><EnvelopeSimple size={16} aria-hidden="true" />Email me</a>
+          <button type="button" className="rk-btn" onClick={event => openAssistant(event.currentTarget)}><ChatCircleDots size={16} aria-hidden="true" />Ask my AI</button>
+        </div>
+        <p className="hand-note footer-invitation">or break the ice →</p>
+      </div>
+      <Icebreaker />
+    </Reveal>}
+    <div className="studio-footer-bottom">
+      <Link href="/" className="footer-signature"><Image src="/favicon.ico" alt="" width={30} height={30} unoptimized /><span><strong>hitesh<em>.ml</em></strong><small>AI/ML Engineer · Chandigarh, India</small></span></Link>
+      <nav className="footer-socials" aria-label="Social links">
+        <a href="https://github.com/Hiteshydv001" target="_blank" rel="noopener noreferrer"><GithubLogo size={16} aria-hidden="true" />GitHub</a>
+        <a href="https://www.linkedin.com/in/hitesh-kumar-ai" target="_blank" rel="noopener noreferrer"><LinkedinLogo size={16} aria-hidden="true" />LinkedIn</a>
+        <a href="https://x.com/tensor_nets" target="_blank" rel="noopener noreferrer"><XLogo size={16} aria-hidden="true" />X</a>
+        <a href="mailto:hiteshofficial0001@gmail.com"><EnvelopeSimple size={16} aria-hidden="true" />Email</a>
+      </nav>
+      <a href="#top" className="footer-top" aria-label="Back to top"><ArrowUp size={16} aria-hidden="true" /><span>Top</span></a>
+    </div>
+    {isContact && <div className="studio-footer-tools"><StudioTool type="booking" /><StudioTool type="assistant" /></div>}
+    <FooterHorizon />
+  </footer></IconContext.Provider>
 }

@@ -3,7 +3,7 @@ import { Project } from "../_types/project-types";
 export const majorProjects: Project[] = [
     {
         title: "Multi-RAG-Agent",
-        description: "A system using multiple specialized AI agents to automate workflows like text summarization, research article generation, and data sanitization.",
+        description: "Multi-agent RAG app: specialized agents handle text summarization, research-article drafting and data sanitization over a FAISS vector index, using Gemini and Hugging Face models. Live demo on Vercel.",
         longDescription: "Multi-RAG-Agent is a sophisticated system that leverages multiple AI agents, each specialized in different tasks, to create a powerful workflow automation platform. The system uses advanced RAG techniques to ensure accurate and contextual processing of information.",
         techStack: ["Python", "Streamlit", "FAISS", "Hugging Face", "Gemini API", "Next.js", "Flask"],
         link: "https://github.com/Hiteshydv001/Multi-Rag-Agent",
@@ -97,7 +97,7 @@ export const majorProjects: Project[] = [
     },
     {
         title: "Property Price Predictor",
-        description: "An end-to-end ML pipeline for predicting real estate prices in India. It includes automated data ingestion, advanced geospatial feature engineering, and a Flask UI, achieving a 90.3% R² score.",
+        description: "End-to-end ML pipeline for Indian real-estate prices: automated data ingestion, geospatial feature engineering and gradient-boosted models (LightGBM, XGBoost), served through a Flask app. Reaches a 90.3% R² score.",
         longDescription: "This comprehensive real estate price prediction system combines advanced machine learning techniques with geospatial analysis to provide accurate property valuations across India. The system features automated data processing and an intuitive user interface.",
         techStack: ["Python", "Scikit-learn", "LightGBM", "XGBoost", "Pandas", "Flask"],
         link: "https://github.com/Hiteshydv001/Property_price_predictor",
@@ -282,7 +282,7 @@ export const majorProjects: Project[] = [
     },
     {
         title: "DialogWeaver",
-        description: "An end-to-end orchestration platform for building and deploying intelligent, interruptible voice AI agents. It features a multi-tenant API and a no-code UI playground.",
+        description: "Platform for building and deploying real-time, interruptible voice AI agents: a multi-tenant FastAPI backend over WebSockets, Redis and PostgreSQL, plus a no-code Next.js playground. Led as a GirlScript Summer of Code 2025 project.",
         longDescription: "DialogWeaver is a comprehensive platform that simplifies the creation and deployment of sophisticated voice AI agents. The system features a unique orchestration layer that enables seamless voice interactions with advanced interruption handling.",
         techStack: ["Docker", "Python", "FastAPI", "Next.js", "React", "PostgreSQL", "Redis", "WebSockets"],
         link: "https://github.com/Hiteshydv001/DialogWeaver",
@@ -328,8 +328,8 @@ export const majorProjects: Project[] = [
     },
     {
         title: "AI-Powered Portfolio",
-        description: "An interactive, conversational portfolio featuring a custom AI assistant (HiteshBot) trained exclusively on his professional background. Users can ask complex questions and receive accurate, context-aware answers in real-time.",
-        longDescription: "This portfolio showcases the intersection of modern web development and artificial intelligence, featuring a custom-trained AI assistant that provides personalized responses about professional experience. The system uses advanced RAG techniques to ensure accurate and contextual responses while maintaining conversation coherence.",
+        description: "Conversational portfolio with HiteshBot, a RAG assistant (LlamaIndex + Gemini) that answers questions about my work from my own documents. FastAPI backend on Render, Next.js front end on Vercel.",
+        longDescription: "This portfolio showcases the intersection of modern web development and artificial intelligence, featuring a RAG-powered AI assistant that answers questions about my professional experience from my own documents. The system uses advanced RAG techniques to ensure accurate and contextual responses while maintaining conversation coherence.",
         techStack: ["FastAPI", "LlamaIndex", "Google Gemini", "Python", "Next.js", "React", "TypeScript", "Vercel", "Render"],
         link: "https://github.com/Hiteshydv001/Portfolio",
         live: "https://hitesh-bot-portfolio.vercel.app/",
@@ -337,7 +337,7 @@ export const majorProjects: Project[] = [
         category: "ai-fullstack",
         highlights: ["RAG pipeline implementation", "Real-time AI conversations", "Production deployment"],
         keyFeatures: [
-            "Custom-trained AI assistant with deep knowledge of professional background",
+            "RAG assistant grounded in my professional background",
             "Real-time, context-aware conversation capabilities",
             "Seamless integration of modern web technologies",
             "Responsive and intuitive user interface"
@@ -375,14 +375,14 @@ export const majorProjects: Project[] = [
     },
     {
         title: "Guard-AI - Remote Proctoring System",
-        description: "A sophisticated, open-source AI proctoring system for secure remote assessments, featuring real-time facial recognition, gaze tracking, and lip movement detection. Featured in multiple open-source programs (SWOC, JWOC, DWOC).",
+        description: "Open-source remote-proctoring system that uses computer vision for real-time face recognition, gaze tracking and lip-movement detection during online exams. I maintained it and mentored contributors through SWoC, JWoC and DWoC.",
         longDescription: "Guard-AI is a comprehensive remote proctoring solution that leverages advanced computer vision and machine learning techniques to ensure the integrity of online assessments. The system provides real-time monitoring capabilities while maintaining user privacy and system security.",
         techStack: ["Python", "FastAPI", "OpenCV", "Machine Learning", "Streamlit", "Next.js", "Vercel"],
         link: "https://github.com/Hiteshydv001/Guard-AI-Designing-Remote-Proctoring-System",
         live: "https://guard-ai-proctor.vercel.app/",
         featured: true,
         category: "ai-fullstack",
-        highlights: ["Real-time monitoring", "Emotion recognition", "Open Source Mentorship"],
+        highlights: ["Real-time monitoring", "Gaze & lip tracking", "Open Source Mentorship"],
         keyFeatures: [
             "Real-time facial recognition and tracking",
             "Gaze detection and analysis",
@@ -422,7 +422,7 @@ export const majorProjects: Project[] = [
     },
     {
         title: "Voice Marketing Agent",
-        description: "A complete, self-hosted framework for building real-time, low-latency AI voice agents for automated marketing calls. The system is fully containerized with Docker and uses a high-performance, open-source AI pipeline.",
+        description: "Self-hosted voice-agent stack for automated marketing calls: a local LLM via Ollama, Coqui TTS speech and a FastAPI + PostgreSQL backend, all in Docker. Built around a sub-2-second response target as a GirlScript Summer of Code 2025 project.",
         longDescription: "The Voice Marketing Agent is an innovative solution that combines conversational AI with voice synthesis to create natural, engaging automated marketing calls. The system is designed to be self-hosted and highly customizable, making it ideal for businesses of all sizes.",
         techStack: ["Docker", "Python", "FastAPI", "React", "Vite", "PostgreSQL", "Ollama", "Coqui TTS"],
         link: "https://github.com/Hiteshydv001/Voice-Marketing-Agent",
