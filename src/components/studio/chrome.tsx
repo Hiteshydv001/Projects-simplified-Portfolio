@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Compass, Home, Asterisk, PanelsTopLeft, Blocks, Notebook, Award, ChartNoAxesCombined, Heart, ArrowUpRight, Mail, Sun, Moon, Pause, Play, Search, X, BookOpen, Code2, Lightbulb, Briefcase, FlaskConical, History, FileText, KeyRound } from 'lucide-react'
+import { Compass, Home, Asterisk, PanelsTopLeft, Blocks, Notebook, Award, ChartNoAxesCombined, Heart, ArrowUpRight, Mail, Sun, Moon, Pause, Play, Search, X, BookOpen, Code2, Lightbulb, Briefcase, FlaskConical, History, FileText } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogTrigger } from '@/components/ui/primitives/dialog'
 import { useMotionSettings } from '@/components/layout/motion-provider'
@@ -177,10 +177,6 @@ export function StudioNavbar({ sections }: { sections: Record<string, Navigation
           <Mail size={17} strokeWidth={1.8} aria-hidden="true" />
           <span className="nav-control-tooltip" aria-hidden="true">Email me</span>
         </a>
-        <Link className="nav-utility" href="/members" prefetch={false} aria-label="Members area: sign in with NexusID">
-          <KeyRound size={17} strokeWidth={1.8} aria-hidden="true" />
-          <span className="nav-control-tooltip" aria-hidden="true">Members sign-in</span>
-        </Link>
         <button type="button" className="nav-utility theme-control" onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')} aria-label={themeLabel}>
           {isDark ? <Sun size={17} strokeWidth={1.8} aria-hidden="true" /> : <Moon size={17} strokeWidth={1.8} aria-hidden="true" />}
           <span className="nav-control-tooltip" aria-hidden="true">{themeLabel}</span>
